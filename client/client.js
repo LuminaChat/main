@@ -116,39 +116,27 @@ var verifyNickname = function (nick) {
 	return /^[a-zA-Z0-9_]{1,24}$/.test(nick);
 }
 
-var frontpage = [
-	"                            _           _         _       _   ",
-	"                           | |_ ___ ___| |_   ___| |_ ___| |_ ",
-	"                           |   |_ ||  _| '_| |  _|   |_ ||  _|",
-	"                           |_|_|__/|___|_,_|.|___|_|_|__/|_|  ",
-	"",
-	"",
-	"Welcome to hack.chat, a minimal, distraction-free chat application.",
-	"Channels are created, joined and shared with the url, create your own channel by changing the text after the question mark.",
-	"If you wanted your channel name to be 'your-channel': https://hack.chat/?your-channel",
-	"There are no channel lists, so a secret channel name can be used for private discussions.",
-	"",
-	"Here are some pre-made channels you can join:",
-	"?lounge ?meta",
-	"?math ?physics ?chemistry",
-	"?technology ?programming",
-	"?games ?banana",
-	"And here's a random one generated just for you: ?" + Math.random().toString(36).substr(2, 8),
-	"",
-	"Formatting:",
-	"Whitespace is preserved, so source code can be pasted verbatim.",
-	"Surround LaTeX with a dollar sign for inline style $\\zeta(2) = \\pi^2/6$, and two dollars for display. $$\\int_0^1 \\int_0^1 \\frac{1}{1-xy} dx dy = \\frac{\\pi^2}{6}$$",
-	"For syntax highlight, wrap the code like: ```<language> <the code>``` where <language> is any known programming language.",
-	"",
-	"Current Github: https://github.com/hack-chat",
-	"Legacy GitHub: https://github.com/AndrewBelt/hack.chat",
-	"",
-	"Bots, Android clients, desktop clients, browser extensions, docker images, programming libraries, server modules and more:",
-	"https://github.com/hack-chat/3rd-party-software-list",
-	"",
-	"Server and web client released under the WTFPL and MIT open source license.",
-	"No message history is retained on the hack.chat server."
-].join("\n");
+var frontpage = `
+# Lumina.Chat
+
+**********
+
+欢迎来到Lumina.Chat, 一个简洁主题的聊天室。
+Lumina是拉丁语中“光”的意思，我们希望此聊天室像阳光一样充满活力和生机。
+
+**********
+
+主聊天室: ?main
+
+您也可以自己创建聊天室，用以下链接来创建：
+\`${document.location.href}?<你的聊天室名称>\`
+聊天室名称最好是纯英文。
+
+**********
+
+我们欢迎开发者们的贡献！
+查看我们的 Github 仓库：https://github.com/LuminaChat/main
+`;
 
 function $(query) {
 	return document.querySelector(query);
@@ -307,9 +295,9 @@ function notify(args) {
 }
 
 function join(channel) {
-	if (document.domain == 'hack.chat') {
+	if (document.location.hostname == 'lumina.chat') {
 		// For https://hack.chat/
-		ws = new WebSocket('wss://hack.chat/chat-ws');
+		ws = new WebSocket('wss://lumina.chat/ws');
 	} else {
 		// for local installs
 		var protocol = location.protocol === 'https:' ? 'wss:' : 'ws:'
@@ -318,7 +306,7 @@ function join(channel) {
 		// if you are reverse proxying, change 'wsPath' to the new location
 		// (example: '/chat-ws')
 		var wsPath = ':6060';
-		ws = new WebSocket(protocol + '//' + document.domain + wsPath);
+		ws = new WebSocket(protocol + '//' + document.location.hostname + wsPath);
 	}
 
 	var wasConnected = false;
@@ -329,7 +317,7 @@ function join(channel) {
 			if (location.hash) {
 				myNick = location.hash.substr(1);
 			} else {
-				var newNick = prompt('Nickname:', myNick);
+				var newNick = prompt('输入你的名称', myNick);
 				if (newNick !== null) {
 					myNick = newNick;
 				} else {
@@ -349,7 +337,7 @@ function join(channel) {
 
 	ws.onclose = function () {
 		if (wasConnected) {
-			pushMessage({ nick: '!', text: "Server disconnected. Attempting to reconnect. . ." });
+			pushMessage({ nick: '!', text: "连接断开，正在尝试重连..." });
 		}
 
 		window.setTimeout(function () {
@@ -392,7 +380,7 @@ var COMMANDS = {
 			userAdd(nick);
 		});
 
-		pushMessage({ nick: '*', text: "Users online: " + nicks.join(", ") })
+		pushMessage({ nick: '*', text: "在线的用户: " + nicks.join(", ") })
 	},
 
 	onlineAdd: function (args) {
@@ -401,7 +389,7 @@ var COMMANDS = {
 		userAdd(nick);
 
 		if ($('#joined-left').checked) {
-			pushMessage({ nick: '*', text: nick + " joined" });
+			pushMessage({ nick: '*', text: nick + " 加入了聊天室" });
 		}
 	},
 
@@ -411,7 +399,7 @@ var COMMANDS = {
 		userRemove(nick);
 
 		if ($('#joined-left').checked) {
-			pushMessage({ nick: '*', text: nick + " left" });
+			pushMessage({ nick: '*', text: nick + " 退出了聊天室" });
 		}
 	}
 }
@@ -538,7 +526,7 @@ function updateTitle() {
 	if (myChannel) {
 		title = "?" + myChannel;
 	} else {
-		title = "hack.chat";
+		title = "LuminaChat";
 	}
 
 	if (unread > 0) {
