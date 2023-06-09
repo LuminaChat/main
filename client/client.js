@@ -791,42 +791,7 @@ function userIgnore(nick) {
 /* color scheme switcher */
 
 var schemes = [
-	'android',
-	'android-white',
-	'atelier-dune',
-	'atelier-forest',
-	'atelier-heath',
-	'atelier-lakeside',
-	'atelier-seaside',
-	'banana',
-	'bright',
-	'bubblegum',
-	'chalk',
-	'default',
-	'eighties',
-	'fresh-green',
-	'greenscreen',
-	'hacker',
-	'maniac',
-	'mariana',
-	'military',
-	'mocha',
-	'monokai',
-	'nese',
-	'ocean',
-	'omega',
-	'pop',
-	'railscasts',
-	'solarized',
-	'tk-night',
-	'tomorrow',
-	'carrot',
-	'lax',
-	'Ubuntu',
-	'gruvbox-light',
-	'fried-egg',
-	'rainbow',
-	'amoled'
+	"default"
 ];
 
 var highlights = [
