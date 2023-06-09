@@ -11,7 +11,7 @@ import chalk from 'chalk';
 // gotta have that sexy console
 console.log(stripIndents`
   ${chalk.magenta('°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸°º¤ø,¸¸,ø¤º°`°º¤ø')}
-  ${chalk.gray('--------------(') + chalk.white(' HackChat Setup Wizard v2.0 ') + chalk.gray(')--------------')}
+  ${chalk.gray('--------------(') + chalk.white(' LuminaChat Setup Wizard ') + chalk.gray(')--------------')}
   ${chalk.magenta('°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸°º¤ø,¸¸,ø¤º°`°º¤ø')}
 
   For advanced setup, see the documentation at:

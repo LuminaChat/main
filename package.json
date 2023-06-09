@@ -1,11 +1,11 @@
 {
-  "name": "hack.chat-v2",
+  "name": "lumina.chat-v2",
   "version": "2.1.93",
   "description": "a minimal distraction free chat application",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hack-chat/main.git"
+    "url": "git+https://github.com/LuminaChat/main.git"
   },
   "engines": {
     "node": ">= 10.15.1",
@@ -20,8 +20,8 @@
     "refresh": "pm2 flush && pm2 stop pm2.config.js && pm2 delete pm2.config.js",
     "postinstall": "cd ./server && npm install && npm run config"
   },
-  "author": "Marzavec",
-  "license": "WTFPL",
+  "author": "0x24a",
+  "license": "AGPL-3.0",
   "dependencies": {
     "esm": "^3.2.25",
     "http-server": "^0.12.1",
