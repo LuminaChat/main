@@ -60,4 +60,8 @@ typings/
 # next.js build output
 .next
 
+# LuminaChat Configures
 server/config/
+
+#vscode
+.vscode/

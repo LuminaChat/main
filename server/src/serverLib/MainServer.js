@@ -17,7 +17,7 @@ import { ServerConst } from '../utility/Constants';
   */
 class MainServer extends WsServer {
   /**
-    * Create a HackChat server instance
+    * Create a LuminaChat server instance
     * @param {CoreApp} core Reference to the global core object
     */
   constructor(core) {

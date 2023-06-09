@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name      : 'hackchat-websocket',
+    name      : 'luminachat-websocket',
     node_args : '-r esm',
     script    : './server/main.js',
     instances: 1,
@@ -15,7 +15,7 @@ module.exports = {
       NODE_ENV: 'production'
     }
   }, {
-    name: 'hackchat-httpd',
+    name: 'luminachat-httpd',
     script: './node_modules/http-server/bin/http-server',
     args: './client -p 3000 -o',
     instances: 1,
