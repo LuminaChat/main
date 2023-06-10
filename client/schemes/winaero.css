@@ -1,3 +1,6 @@
+*{
+font-family:Consolas,"Cascadia Mono","Ubuntu Mono",Melon,"Lucida Console","Microsoft Yahei UI","PingFang SC","SimHei";
+}
 body:before {
   content: "";
   background: url(https://cdn.luogu.com.cn/upload/image_hosting/o2q3fsbe.png) no-repeat;
@@ -98,4 +101,7 @@ input[type="button"]:active,button:active{
   border-color: #aaa;
   background:#555;
   transition: all 0.2s;
+}
+blockquote{
+  border-radius:5px;
 }
