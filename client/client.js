@@ -807,8 +807,8 @@ var highlights = [
 	'zenburn'
 ]
 
-var currentScheme = 'atelier-dune';
-var currentHighlight = 'darcula';
+var currentScheme = 'default';
+var currentHighlight = 'xcode';
 
 function setScheme(scheme) {
 	currentScheme = scheme;
