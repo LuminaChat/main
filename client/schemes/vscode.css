@@ -1,0 +1,64 @@
+:root{
+  --code-background:#1e1e1e;
+  --code-default:#d4d4d4;
+  --code-item:#9cdcfe;
+  --code-define:#c586c0;
+  --code-string:#ce9178;
+  --code-keyword:#c586c0;
+  --code-var:#569cd6;
+  --code-char:#ffd700;
+  --code-comment:#6a9955;
+  --code-number:#b5cea8;
+  --code-special:#9cdcfe;
+}
+body {
+  background: var(--code-background);
+  color: var(--code-default);
+}
+input,
+textarea {
+  color: var(--code-default);
+}
+.message {
+  border-left: 1px solid rgba(125, 122, 104, 0.5);
+}
+.refmessage {
+  border-left: 1px solid rgba(125, 122, 104, 1);
+}
+.nick {
+  color: var(--code-item);
+}
+.trip {
+  color: var(--code-number);
+}
+.text a {
+  color: var(--code-var);
+}
+.admin .nick {
+  color: var(--code-define);
+}
+.mod .nick {
+  color: var(--code-string);
+}
+.me .nick {
+  color: #dcdcaa;
+}
+.info .nick,
+.info .text {
+  color: var(--code-comment);
+}
+.warn .nick,
+.warn .text {
+  color: var(--code-char);
+}
+#footer {
+  background: rgb(24, 24, 24);
+}
+#sidebar {
+  background: var(--code-background);
+  border-color: #d7ba7d;
+}
+#chatform {
+  border-radius: 5px;
+  border: 1px solid #6e7681;
+}
