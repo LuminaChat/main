@@ -30,7 +30,7 @@ backdrop-filter: blur(7px);
 -webkit-backdrop-filter: blur(7px);
 }
 .refmessage {
-border-left: 1px solid #555;
+border-left: 1px solid #2b3141cc;
 }
 .nick {
 color: #7ba;
