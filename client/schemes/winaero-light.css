@@ -1,0 +1,106 @@
+body:before {
+    content: "";
+    background: url(https://cdn.luogu.com.cn/upload/image_hosting/bxq0pdud.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+body {
+  background: #fff9;
+  color: #444;
+}
+textarea {
+  color: #444;
+}
+.message p.text,.message div.text {
+  border:1px solid #fffa;
+  border-radius:5px;
+  margin:5px 0;
+  padding:10px;
+  background:#fff9;
+  backdrop-filter: blur(7px);
+}
+.refmessage {
+  border-left: 1px solid #fff9;
+}
+.nick {
+  color: #ff9600;
+}
+.trip {
+  color: #608500;
+}
+.text a {
+  color: #1a78a7;
+}
+.me .nick {
+  color: #731680;
+}
+.info .nick,.info .text {
+  color: #4c8d4f;
+}
+.warn .nick,.warn .text {
+  color: #ffbf00;
+}
+#footer {
+  background: #fff6;
+  backdrop-filter: blur(7px);
+  border-top:1px solid #fff9;
+  padding:5px;
+}
+#sidebar {
+  background: #fff6;
+  backdrop-filter: blur(7px);
+  border-left:1px solid #fff9;
+  border-bottom:1px solid #fff9;
+  border-radius:0 0 0 5px;
+}
+#chatform {
+  background-color: #fff7;
+  border:1px solid #fff9;
+  border-radius:7px;
+}
+.info .nick a{
+  font-size:0;
+}
+.info .nick a::before{
+  content:"提示";
+  font-size:12px;
+}
+.warn .nick a{
+  font-size:0;
+}
+.warn .nick a::before{
+  content:"警告";
+  font-size:12px;
+}
+input[type="button"],button,select{
+    border:0.9px solid #aaa;
+    border-radius: 2.5px;
+    background: #fff;
+    color:#000;
+    width:80px;
+    padding:4px 0;
+    margin:0 5px;
+    font-size:90%;
+    transition: all 0.2s;
+}
+input[type="button"]:hover,button:hover,select:hover,select:focus{
+    border-color: #0078d4;
+    background:#e0eef9;
+    transition: all 0.2s;
+}
+input[type="button"]:active,button:active{
+    border-color: #005499;
+    background:#CCE4F7;
+    transition: all 0.2s;
+}
+blockquote{
+  border-radius:5px;
+  border-color:#aaa;
+}
+hr{border-color:#777;}
