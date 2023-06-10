@@ -1,4 +1,4 @@
-*{
+*,textarea{
 font-family:Consolas,"Cascadia Mono","Ubuntu Mono",Melon,"Lucida Console","Microsoft Yahei UI","PingFang SC","SimHei";
 }
 body:before {
