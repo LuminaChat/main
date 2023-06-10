@@ -27,6 +27,7 @@ margin:5px 0;
 padding:10px;
 background:#2b314155;
 backdrop-filter: blur(7px);
+-webkit-backdrop-filter: blur(7px);
 }
 .refmessage {
 border-left: 1px solid #555;
@@ -52,12 +53,14 @@ color: #ec6;
 #footer {
 background: #2b314177;
 backdrop-filter: blur(7px);
+-webkit-backdrop-filter: blur(7px);
 border-top:1px solid #2b3141cc;
 padding:5px;
 }
 #sidebar {
 background: #2b3141aa;
 backdrop-filter: blur(7px);
+-webkit-backdrop-filter: blur(7px);
 border-left:1px solid #2b3141cc;
 border-bottom:1px solid #2b3141cc;
 border-radius:0 0 0 5px;
