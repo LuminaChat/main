@@ -17,7 +17,7 @@ color: #ccd3cc;
 textarea {
 color: #ccd3cc;
 }
-.message .text {
+.message p.text,.message div.text {
 border:1px solid #2b3141aa;
 border-radius:5px;
 margin:5px 0;
