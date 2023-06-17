@@ -41,7 +41,7 @@ export async function run(core, server, socket, data) {
   if (badClient.level >= socket.level) {
     return server.reply({
       cmd: 'warn',
-      text: '这一招对同一级别的用户不起作用。',
+      text: '为什么要禁言同一级别或更高级别的用户？~~你要造反吗？~~', //造反の故事
     }, socket);
   }
 
@@ -58,7 +58,7 @@ export async function run(core, server, socket, data) {
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} muzzled ${data.nick} in ${socket.channel}, userhash: ${badClient.hash}`,
+    text: `${socket.nick}#${socket.trip} 禁言了 ${data.nick} 在 ${socket.channel}, 用户hash： ${badClient.hash}\n你可以通过上面提供的hash来解除禁言`,
   }, { level: UAC.isModerator });
 
   return true;
@@ -173,6 +173,6 @@ export const info = {
   name: 'dumb',
   description: '禁言一个用户',
   usage: `
-    API: { cmd: 'dumb', nick: '<呢称>', allies: ['呢称数组>', ...] }`,
+    API: { cmd: 'dumb', nick: '<呢称>', allies: ['<呢称数组>', ...] }`,
 };
 info.aliases = ['muzzle', 'mute'];

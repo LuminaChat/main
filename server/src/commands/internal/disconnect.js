@@ -27,6 +27,6 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['cmdKey'];
 export const info = {
   name: 'disconnect',
-  usage: 'Internal Use Only',
-  description: 'Internally used to relay `onlineRemove` event to clients',
+  usage: '仅供内部使用',
+  description: '只是为每个客户端实现 `onlineRemove`',
 };

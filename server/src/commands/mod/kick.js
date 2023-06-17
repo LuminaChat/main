@@ -41,7 +41,7 @@ export async function run(core, server, socket, data) {
     if (badClients[i].level >= socket.level) {
       server.reply({
         cmd: 'warn',
-        text: '踢出同级别用户？你6',
+        text: '你不能踢出同级别或更高级别的用户！',
       }, socket);
     } else {
       kicked.push(badClients[i]);

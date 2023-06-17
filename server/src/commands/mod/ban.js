@@ -29,30 +29,30 @@ export async function run(core, server, socket, data) {
 
   [badClient] = badClient;
 
-  // i guess banning mods or admins isn't the best idea?
+  // 封禁管理员
   if (badClient.level >= socket.level) {
     return server.reply({
       cmd: 'warn',
-      text: '不能禁止同一级别的其他用户，真不礼貌。',
+      text: '不能封禁同一级别的用户，~~除非你想造反！~~',  
     }, socket);
   }
 
   // commit arrest record
   server.police.arrest(badClient.address, badClient.hash);
 
-  console.log(`${socket.nick} [${socket.trip}] banned ${targetNick} in ${socket.channel}`);
+  console.log(`在房间${socket.channel}里，${socket.nick} [${socket.trip}] 封禁了 ${targetNick}`);
 
   // notify normal users
   server.broadcast({
     cmd: 'info',
-    text: `已封禁 ${targetNick}`,
+    text: `已封禁 ${targetNick} ，那用户真是要造反了！`,//996
     user: UAC.getUserDetails(badClient),
   }, { channel: socket.channel, level: (level) => level < UAC.levels.moderator });
 
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} 在 ${socket.channel} 封禁了 ${targetNick}, 用户的Hash: ${badClient.hash}`,
+    text: `${socket.nick}#${socket.trip} 在 ${socket.channel} 封禁了 ${targetNick}, 用户的Hash: ${badClient.hash} \n你可以根据提供的hash解封该用户`,
     channel: socket.channel,
     user: UAC.getUserDetails(badClient),
     banner: UAC.getUserDetails(socket),
@@ -70,7 +70,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['nick'];
 export const info = {
   name: 'ban',
-  description: '禁止一个用户连接到服务器',
+  description: '禁止一个用户连接到服务器（封禁一个用户）',
   usage: `
     API: { cmd: 'ban', nick: '<用户名称>' }`,
 };

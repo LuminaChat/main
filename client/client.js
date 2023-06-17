@@ -9,10 +9,10 @@
 
 //select "chatinput" on "/"
 document.addEventListener("keydown", e => {
-    if (e.key === '/' && document.getElementById("chatinput") != document.activeElement) {
-        e.preventDefault();
-        document.getElementById("chatinput").focus();
-    }
+	if (e.key === '/' && document.getElementById("chatinput") != document.activeElement) {
+		e.preventDefault();
+		document.getElementById("chatinput").focus();
+	}
 });
 
 // initialize markdown engine
@@ -23,7 +23,7 @@ var markdownOptions = {
 	langPrefix: '',
 	linkify: true,
 	linkTarget: '_blank" rel="noreferrer',
-	typographer:  true,
+	typographer: true,
 	quotes: `""''`,
 
 	doHighlight: true,
@@ -33,12 +33,12 @@ var markdownOptions = {
 		if (lang && hljs.getLanguage(lang)) {
 			try {
 				return hljs.highlight(lang, str).value;
-			} catch (__) {}
+			} catch (__) { }
 		}
 
 		try {
 			return hljs.highlightAuto(str).value;
-		} catch (__) {}
+		} catch (__) { }
 
 		return '';
 	}
@@ -48,9 +48,22 @@ var md = new Remarkable('full', markdownOptions);
 
 // image handler
 var allowImages = false;
+//图片白名单
 var imgHostWhitelist = [
+	//hack.chat自带
 	'i.imgur.com',
 	'imgur.com',
+	//cmd：下面的url复制的zhc（被打
+	'i.loli.net', 's2.loli.net', // SM-MS图床
+	's1.ax1x.com', 's2.ax1x.com', 'z3.ax1x.com', 's4.ax1x.com', // 路过图床
+	'i.postimg.cc', 'gimg2.baidu.com', // Postimages图床 百度
+	'files.catbox.moe', 'img.thz.cool', 'img.liyuv.top', 'share.lyka.pro', // 这些是ee加的（被打
+	document.domain,    // 允许我自己
+	'img.zhangsoft.cf',    // 小张图床
+	'bed.paperee.repl.co',    // 纸片君ee的纸床
+	'imagebed.s1.bitiful.net','imagebed.s2.bitiful.net','imagebed.s3.bitiful.net','imagebed.s4.bitiful.net',    //Dr0让加的()
+	'captcha.dr0.lol',        // Dr0's Captcha
+	'cdn.luogu.com',//洛谷图床()
 ];
 
 function getDomain(link) {
@@ -75,20 +88,20 @@ md.renderer.rules.image = function (tokens, idx, options) {
 		return '<a href="' + src + '" target="_blank" rel="noreferrer"><img' + scrollOnload + imgSrc + alt + title + suffix + '></a>';
 	}
 
-  return '<a href="' + src + '" target="_blank" rel="noreferrer">' + Remarkable.utils.escapeHtml(Remarkable.utils.replaceEntities(src)) + '</a>';
+	return '<a href="' + src + '" target="_blank" rel="noreferrer">' + Remarkable.utils.escapeHtml(Remarkable.utils.replaceEntities(src)) + '</a>';
 };
 
 md.renderer.rules.link_open = function (tokens, idx, options) {
 	var title = tokens[idx].title ? (' title="' + Remarkable.utils.escapeHtml(Remarkable.utils.replaceEntities(tokens[idx].title)) + '"') : '';
-  var target = options.linkTarget ? (' target="' + options.linkTarget + '"') : '';
-  return '<a rel="noreferrer" onclick="return verifyLink(this)" href="' + Remarkable.utils.escapeHtml(tokens[idx].href) + '"' + title + target + '>';
+	var target = options.linkTarget ? (' target="' + options.linkTarget + '"') : '';
+	return '<a rel="noreferrer" onclick="return verifyLink(this)" href="' + Remarkable.utils.escapeHtml(tokens[idx].href) + '"' + title + target + '>';
 };
 
-md.renderer.rules.text = function(tokens, idx) {
+md.renderer.rules.text = function (tokens, idx) {
 	tokens[idx].content = Remarkable.utils.escapeHtml(tokens[idx].content);
 
 	if (tokens[idx].content.indexOf('?') !== -1) {
-		tokens[idx].content = tokens[idx].content.replace(/(^|\s)(\?)\S+?(?=[,.!?:)]?\s|$)/gm, function(match) {
+		tokens[idx].content = tokens[idx].content.replace(/(^|\s)(\?)\S+?(?=[,.!?:)]?\s|$)/gm, function (match) {
 			var channelLink = Remarkable.utils.escapeHtml(Remarkable.utils.replaceEntities(match.trim()));
 			var whiteSpace = '';
 			if (match[0] !== '?') {
@@ -98,7 +111,7 @@ md.renderer.rules.text = function(tokens, idx) {
 		});
 	}
 
-  return tokens[idx].content;
+	return tokens[idx].content;
 };
 
 md.use(remarkableKatex);
@@ -668,8 +681,8 @@ $('#sidebar').onmouseleave = document.ontouchstart = function (event) {
 	var e = event.toElement || event.relatedTarget;
 	try {
 		if (e.parentNode == this || e == this) {
-	     return;
-	  }
+			return;
+		}
 	} catch (e) { return; }
 
 	if (!$('#pin-sidebar').checked) {
@@ -697,8 +710,8 @@ if (localStorageGet('joined-left') == 'false') {
 
 if (localStorageGet('parse-latex') == 'false') {
 	$('#parse-latex').checked = false;
-	md.inline.ruler.disable([ 'katex' ]);
-	md.block.ruler.disable([ 'katex' ]);
+	md.inline.ruler.disable(['katex']);
+	md.block.ruler.disable(['katex']);
 }
 
 $('#pin-sidebar').onchange = function (e) {
@@ -713,11 +726,11 @@ $('#parse-latex').onchange = function (e) {
 	var enabled = !!e.target.checked;
 	localStorageSet('parse-latex', enabled);
 	if (enabled) {
-		md.inline.ruler.enable([ 'katex' ]);
-		md.block.ruler.enable([ 'katex' ]);
+		md.inline.ruler.enable(['katex']);
+		md.block.ruler.enable(['katex']);
 	} else {
-		md.inline.ruler.disable([ 'katex' ]);
-		md.block.ruler.disable([ 'katex' ]);
+		md.inline.ruler.disable(['katex']);
+		md.block.ruler.disable(['katex']);
 	}
 }
 

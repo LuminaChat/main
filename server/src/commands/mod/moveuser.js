@@ -35,7 +35,7 @@ export async function run(core, server, socket, data) {
   if (badClient.level >= socket.level) {
     return server.reply({
       cmd: 'warn',
-      text: '你不能移动同级别或更同级别的用户，这很不礼貌',
+      text: '你不能移动同级别或更同级别的用户，~~别造反啊！~~',
     }, socket);
   }
 
@@ -103,7 +103,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['nick', 'channel'];
 export const info = {
   name: 'moveuser',
-  description: 'This will move the target user nick into another channel',
+  description: '~~光明正大的把一个用户踢到指定频道~~移动一个用户到其他房间',
   usage: `
-    API: { cmd: 'moveuser', nick: '<target nick>', channel: '<new channel>' }`,
+    API: { cmd: 'moveuser', nick: '<用户名称>', channel: '<移动到的频道>' }`,
 };

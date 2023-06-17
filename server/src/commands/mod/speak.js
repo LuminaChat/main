@@ -23,7 +23,7 @@ export async function run(core, server, socket, data) {
   if (typeof data.ip !== 'string' && typeof data.hash !== 'string') {
     return server.reply({
       cmd: 'warn',
-      text: "hash:'targethash' 或 ip:'1.2.3.4' 参数是必须的",
+      text: "hash或ip参数被你吃了吗",
     }, socket);
   }
 
@@ -33,7 +33,7 @@ export async function run(core, server, socket, data) {
 
       return server.broadcast({
         cmd: 'info',
-        text: `${socket.nick} 解禁了所有用户`,
+        text: `${socket.nick} 解除了所有用户的禁言`,
       }, { level: UAC.isModerator });
     }
   } else if (data.hash === '*') {
@@ -41,7 +41,7 @@ export async function run(core, server, socket, data) {
 
     return server.broadcast({
       cmd: 'info',
-      text: `${socket.nick} 解禁了所有用户`,
+      text: `${socket.nick} 解除了所有用户的禁言`,
     }, { level: UAC.isModerator });
   }
 
@@ -58,7 +58,7 @@ export async function run(core, server, socket, data) {
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} 解禁了: ${target}`,
+    text: `${socket.nick}#${socket.trip} 解除禁言了 ${target}`,
   }, { level: UAC.isModerator });
 
   return true;

@@ -17,5 +17,5 @@ export function initHooks(server) {
 
 export const info = {
   name: 'legacylayer',
-  description: 'This module adjusts outgoing data, making it compatible with legacy clients',
+  description: '此模块调整传出数据，使其与传统客户端兼容',
 };

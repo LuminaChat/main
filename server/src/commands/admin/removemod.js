@@ -26,7 +26,7 @@ export async function run(core, server, socket, data) {
       // inform ex-mod
       server.send({
         cmd: 'info',
-        text: '你被革职了，哈。哈。哈。',
+        text: '您的管理员权限已被移除',
       }, targetMod[i]);
     }
   }
@@ -42,7 +42,7 @@ export async function run(core, server, socket, data) {
   // notify all mods
   server.broadcast({
     cmd: 'info',
-    text: `移除管理员: ${data.trip}`,
+    text: `成功移除管理员: ${data.trip}`,
   }, { level: UAC.isModerator });
 
   return true;

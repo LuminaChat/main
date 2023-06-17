@@ -36,7 +36,7 @@ export async function run(core, server, socket, data) {
 
     return server.reply({
       cmd: 'warn',
-      text: '你不是管理员！大骗子！！！！！！！！',
+      text: '你不是管理员！大骗子！',
     }, socket);
   }
 
