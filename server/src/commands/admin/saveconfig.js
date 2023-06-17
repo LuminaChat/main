@@ -31,7 +31,7 @@ export async function run(core, server, socket) {
 
 export const info = {
   name: 'saveconfig',
-  description: '将当前配置写入磁盘',
+  description: '将当前配置写入服务器',
   usage: `
     API: { cmd: 'saveconfig' }`,
 };

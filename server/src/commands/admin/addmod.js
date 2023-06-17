@@ -48,7 +48,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['trip'];
 export const info = {
   name: 'addmod',
-  description: '添加一个管理员识别码到配置文件中',
+  description: '添加一个管理员识别码',
   usage: `
     API: { cmd: 'addmod', trip: '<识别码>' }`,
 };

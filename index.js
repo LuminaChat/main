@@ -1,1 +1,1 @@
-console.log('Use "npm start" instead.')
+console.log('不正确的用法，请改用“npm start”。')
