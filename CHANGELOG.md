@@ -4,4 +4,4 @@
 第一个Release发布。
 
 ## [未发布阶段]
-Luminachat项目成立。
+Luminachat项目基于HackChat项目成立。
