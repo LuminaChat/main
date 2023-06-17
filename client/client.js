@@ -6,7 +6,7 @@
  * and will not actively be updated.
  *
 */
-
+var clientversion='lmc-1.0-dev';
 //select "chatinput" on "/"
 document.addEventListener("keydown", e => {
 	if (e.key === '/' && document.getElementById("chatinput") != document.activeElement) {
@@ -53,7 +53,7 @@ var imgHostWhitelist = [
 	//hack.chat自带
 	'i.imgur.com',
 	'imgur.com',
-	//cmd：下面的url复制的zhc（被打
+	//cmd：下面的是复制的zhc（被打
 	'i.loli.net', 's2.loli.net', // SM-MS图床
 	's1.ax1x.com', 's2.ax1x.com', 'z3.ax1x.com', 's4.ax1x.com', // 路过图床
 	'i.postimg.cc', 'gimg2.baidu.com', // Postimages图床 百度
@@ -63,6 +63,7 @@ var imgHostWhitelist = [
 	'bed.paperee.repl.co',    // 纸片君ee的纸床
 	'imagebed.s1.bitiful.net','imagebed.s2.bitiful.net','imagebed.s3.bitiful.net','imagebed.s4.bitiful.net',    //Dr0让加的()
 	'captcha.dr0.lol',        // Dr0's Captcha
+	//cmd：下面是OsMe 加的
 	'cdn.luogu.com',//洛谷图床()
 ];
 
@@ -131,7 +132,7 @@ var verifyNickname = function (nick) {
 
 var frontpage = `
 # Lumina.Chat
-版本: lmc-1.0-dev
+版本: `+clientversion+`
 
 ***
 
