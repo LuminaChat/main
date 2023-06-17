@@ -118,6 +118,7 @@ var verifyNickname = function (nick) {
 
 var frontpage = `
 # Lumina.Chat
+版本: lmc-1.0-dev
 
 **********
 
