@@ -106,7 +106,7 @@ md.use(remarkableKatex);
 function verifyLink(link) {
 	var linkHref = Remarkable.utils.escapeHtml(Remarkable.utils.replaceEntities(link.href));
 	if (linkHref !== link.innerHTML) {
-		return confirm('Warning, please verify this is where you want to go: ' + linkHref);
+		return confirm('警告！你即将离开LuminaChat，前往：' + linkHref);
 	}
 
 	return true;
@@ -136,7 +136,12 @@ Lumina是拉丁语中“光”的意思，我们希望此聊天室像阳光一�
 
 我们欢迎开发者们的贡献！
 查看我们的 Github 仓库：https://github.com/LuminaChat/main
-`;
+
+**********
+
+呈上，
+LuminaChat [开发组](https://github.com/orgs/LuminaChat/people) 和 [社区贡献者们](https://github.com/LuminaChat/main/graphs/contributors)
+`
 
 function $(query) {
 	return document.querySelector(query);
@@ -177,7 +182,7 @@ function RequestNotifyPermission() {
 						pushMessage({
 							cmd: "chat",
 							nick: "*",
-							text: "Notifications permission granted.",
+							text: "成功获取通知权限！",
 							time: null
 						});
 						notifyPermissionExplained = 1;
@@ -188,7 +193,7 @@ function RequestNotifyPermission() {
 						pushMessage({
 							cmd: "chat",
 							nick: "*",
-							text: "Notifications permission denied, you won't be notified if someone @mentions you.",
+							text: "通知权限被拒绝，如果有人提到您，您将不会收到通知。",
 							time: null
 						});
 						notifyPermissionExplained = -1;
@@ -201,10 +206,10 @@ function RequestNotifyPermission() {
 		pushMessage({
 			cmd: "chat",
 			nick: "*",
-			text: "Unable to create a notification.",
+			text: "无法创建通知",
 			time: null
 		});
-		console.error("An error occured trying to request notification permissions. This browser might not support desktop notifications.\nDetails:")
+		console.error("试图请求通知权限时出错。此浏览器可能不支持桌面通知。\n详细信息:")
 		console.error(error)
 		return false;
 	}
@@ -524,7 +529,7 @@ function updateTitle() {
 
 	var title;
 	if (myChannel) {
-		title = "?" + myChannel;
+		title = "?" + myChannel + " - LuminaChat";
 	} else {
 		title = "LuminaChat";
 	}

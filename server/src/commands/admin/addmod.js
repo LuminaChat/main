@@ -25,7 +25,7 @@ export async function run(core, server, socket, data) {
       // inform new mod
       server.send({
         cmd: 'info',
-        text: 'You are now a mod.',
+        text: '你现在是一个管理员',
       }, newMod[i]);
     }
   }
@@ -33,7 +33,7 @@ export async function run(core, server, socket, data) {
   // return success message
   server.reply({
     cmd: 'info',
-    text: `Added mod trip: ${data.trip}, remember to run 'saveconfig' to make it permanent`,
+    text: `添加了一个管理员识别码: ${data.trip}, 运行\`saveconfig\`来保存配置`,
   }, socket);
 
   // notify all mods
