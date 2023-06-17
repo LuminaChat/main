@@ -23,7 +23,7 @@ export async function run(core, server, socket, data) {
   if (typeof data.ip !== 'string' && typeof data.hash !== 'string') {
     return server.reply({
       cmd: 'warn',
-      text: "hash:'targethash' or ip:'1.2.3.4' is required",
+      text: "hash:'targethash' 或 ip:'1.2.3.4' 参数是必须的",
     }, socket);
   }
 
@@ -33,7 +33,7 @@ export async function run(core, server, socket, data) {
 
       return server.broadcast({
         cmd: 'info',
-        text: `${socket.nick} unmuzzled all users`,
+        text: `${socket.nick} 解禁了所有用户`,
       }, { level: UAC.isModerator });
     }
   } else if (data.hash === '*') {
@@ -41,7 +41,7 @@ export async function run(core, server, socket, data) {
 
     return server.broadcast({
       cmd: 'info',
-      text: `${socket.nick} unmuzzled all users`,
+      text: `${socket.nick} 解禁了所有用户`,
     }, { level: UAC.isModerator });
   }
 
@@ -58,7 +58,7 @@ export async function run(core, server, socket, data) {
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} unmuzzled : ${target}`,
+    text: `${socket.nick}#${socket.trip} 解禁了: ${target}`,
   }, { level: UAC.isModerator });
 
   return true;
@@ -66,8 +66,8 @@ export async function run(core, server, socket, data) {
 
 export const info = {
   name: 'speak',
-  description: 'Pardon a dumb user to be able to speak again',
+  description: '解除禁言',
   usage: `
-    API: { cmd: 'speak', ip/hash: '<target ip or hash' }`,
+    API: { cmd: 'speak', ip/hash: '<目标 ip 或 hash>' }`,
 };
 info.aliases = ['unmuzzle', 'unmute'];

@@ -9,7 +9,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, 6)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are changing nicknames too fast. Wait a moment before trying again.',
+      text: '你切换名称的速度太快了，请休息一会再试！',
     }, socket);
   }
 
@@ -25,7 +25,7 @@ export async function run(core, server, socket, data) {
   if (!UAC.verifyNickname(newNick)) {
     return server.reply({
       cmd: 'warn',
-      text: 'Nickname must consist of up to 24 letters, numbers, and underscores',
+      text: '名称长度必须小于24位，且只能包含英文、数字和下划线。',
     }, socket);
   }
 
@@ -36,14 +36,14 @@ export async function run(core, server, socket, data) {
 
     return server.reply({
       cmd: 'warn',
-      text: 'You are not the admin, liar!',
+      text: '你不是管理员！大骗子！！！！！！！！',
     }, socket);
   }
 
   if (newNick == previousNick) {
     return server.reply({
       cmd: 'warn',
-      text: 'You already have that name',
+      text: '你原来就是这个名字',
     }, socket);
   }
 
@@ -60,7 +60,7 @@ export async function run(core, server, socket, data) {
     // That nickname is already in that channel
     return server.reply({
       cmd: 'warn',
-      text: 'Nickname taken',
+      text: '已经有一个人使用了你指定的名称了，请换一个名称！',
     }, socket);
   }
 
@@ -86,7 +86,7 @@ export async function run(core, server, socket, data) {
   // notify channel that the user has changed their name
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick} is now ${newNick}`,
+    text: `${socket.nick} 现在修改名称为 ${newNick}`,
   }, { channel: socket.channel });
 
   // commit change to nickname
@@ -113,7 +113,7 @@ export function nickCheck(core, server, socket, payload) {
     if (input[1] === undefined) {
       server.reply({
         cmd: 'warn',
-        text: 'Refer to `/help nick` for instructions on how to use this command.',
+        text: '使用 `/help nick` 查看nick命令的详细帮助',
       }, socket);
 
       return false;
@@ -135,8 +135,8 @@ export function nickCheck(core, server, socket, payload) {
 export const requiredData = ['nick'];
 export const info = {
   name: 'changenick',
-  description: 'This will change your current connections nickname',
+  description: '这个命令能改变你的昵称',
   usage: `
-    API: { cmd: 'changenick', nick: '<new nickname>' }
-    Text: /nick <new nickname>`,
+    API: { cmd: 'changenick', nick: '<新名称>' }
+    Text: /nick <新名称>`,
 };

@@ -1,5 +1,6 @@
 /*
   Description: Clears and resets the command modules, outputting any errors
+  已汉化
 */
 
 import * as UAC from '../utility/UAC/_info';
@@ -20,14 +21,14 @@ export async function run(core, server, socket, data) {
 
   // build reply based on reload results
   if (loadResult === '') {
-    loadResult = `Reloaded ${core.commands.commands.length} commands, 0 errors`;
+    loadResult = `成功重载 ${core.commands.commands.length} 个命令, 神奇的是竟然没有出错.`;
   } else {
-    loadResult = `Reloaded ${core.commands.commands.length} commands, error(s):
+    loadResult = `成功重载 ${core.commands.commands.length} 个命令, 出了一些错误:
       ${loadResult}`;
   }
 
   if (typeof data.reason !== 'undefined') {
-    loadResult += `\nReason: ${data.reason}`;
+    loadResult += `\n原因: ${data.reason}`;
   }
 
   // send results to moderators (which the user using this command is higher than)
@@ -41,7 +42,7 @@ export async function run(core, server, socket, data) {
 
 export const info = {
   name: 'reload',
-  description: '(Re)loads any new commands into memory, outputs errors if any',
+  description: '热重载所有命令',
   usage: `
-    API: { cmd: 'reload', reason: '<optional reason append>' }`,
+    API: { cmd: 'reload', reason: '<可选的附加原因>' }`,
 };

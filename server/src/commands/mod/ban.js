@@ -23,7 +23,7 @@ export async function run(core, server, socket, data) {
   if (badClient.length === 0) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user in channel',
+      text: '无法在频道中找到用户',
     }, socket);
   }
 
@@ -33,7 +33,7 @@ export async function run(core, server, socket, data) {
   if (badClient.level >= socket.level) {
     return server.reply({
       cmd: 'warn',
-      text: 'Cannot ban other users of the same level, how rude',
+      text: '不能禁止同一级别的其他用户，真不礼貌。',
     }, socket);
   }
 
@@ -45,14 +45,14 @@ export async function run(core, server, socket, data) {
   // notify normal users
   server.broadcast({
     cmd: 'info',
-    text: `Banned ${targetNick}`,
+    text: `已封禁 ${targetNick}`,
     user: UAC.getUserDetails(badClient),
   }, { channel: socket.channel, level: (level) => level < UAC.levels.moderator });
 
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} banned ${targetNick} in ${socket.channel}, userhash: ${badClient.hash}`,
+    text: `${socket.nick}#${socket.trip} 在 ${socket.channel} 封禁了 ${targetNick}, 用户的Hash: ${badClient.hash}`,
     channel: socket.channel,
     user: UAC.getUserDetails(badClient),
     banner: UAC.getUserDetails(socket),
@@ -70,7 +70,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['nick'];
 export const info = {
   name: 'ban',
-  description: 'Disconnects the target nickname in the same channel as calling socket & adds to ratelimiter',
+  description: '禁止一个用户连接到服务器',
   usage: `
-    API: { cmd: 'ban', nick: '<target nickname>' }`,
+    API: { cmd: 'ban', nick: '<用户名称>' }`,
 };

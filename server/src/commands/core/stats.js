@@ -24,7 +24,7 @@ export async function run(core, server, socket) {
   // dispatch info
   server.reply({
     cmd: 'info',
-    text: `${uniqueClientCount} unique IPs in ${uniqueChannels} channels`,
+    text: `${uniqueClientCount} 个独立IP在 ${uniqueChannels} 个频道中`,
   }, socket);
 
   // stats are fun
@@ -33,7 +33,7 @@ export async function run(core, server, socket) {
 
 export const info = {
   name: 'stats',
-  description: 'Sends back legacy server stats to the calling client',
+  description: '将服务器统计信息发回给调用的客户端',
   usage: `
     API: { cmd: 'stats' }`,
 };

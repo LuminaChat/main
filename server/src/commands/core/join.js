@@ -10,7 +10,7 @@ const crypto = require('crypto');
 const hash = (password) => {
   const sha = crypto.createHash('sha256');
   sha.update(password);
-  return sha.digest('base64').substr(0, 6);
+  return sha.digest('base64').substr(0, 8);
 };
 
 // exposed "login" function to allow hooks to verify user join events
@@ -29,7 +29,7 @@ export function parseNickname(core, data) {
 
   if (!UAC.verifyNickname(userInfo.nick)) {
     // return error as string
-    return 'Nickname must consist of up to 24 letters, numbers, and underscores';
+    return '昵称只能由数字、字母、下划线组成，且最多24位。';
   }
 
   let password = undefined;
@@ -46,7 +46,7 @@ export function parseNickname(core, data) {
     userInfo.level = UAC.levels.admin;
   } else if (userInfo.nick.toLowerCase() === core.config.adminName.toLowerCase()) {
     // they've got the main-admin name while not being an admin
-    return 'You are not the admin, liar!';
+    return '你不是管理员，滚开';
   } else if (password) {
     userInfo.trip = hash(password + core.config.tripSalt);
   }
@@ -69,7 +69,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, 3)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are joining channels too fast. Wait a moment and try again.',
+      text: '你加入的速度太快了。',
     }, socket);
   }
 
@@ -86,6 +86,8 @@ export async function run(core, server, socket, data) {
   const channel = data.channel.trim();
   if (!channel) {
     // must join a non-blank channel
+
+    //这是锁房用的吗
     return true;
   }
 
@@ -107,7 +109,7 @@ export async function run(core, server, socket, data) {
     // that nickname is already in that channel
     return server.reply({
       cmd: 'warn',
-      text: 'Nickname taken',
+      text: '已经有人使用你的名称在该频道内了',
     }, socket);
   }
 
@@ -189,7 +191,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['channel', 'nick'];
 export const info = {
   name: 'join',
-  description: 'Place calling socket into target channel with target nick & broadcast event to channel',
+  description: '加入一个频道',
   usage: `
-    API: { cmd: 'join', nick: '<your nickname>', password: '<optional password>', channel: '<target channel>' }`,
+    API: { cmd: 'join', nick: '<你的名称>', password: '<可选的密码>', channel: '<要加入的频道>' }`,
 };

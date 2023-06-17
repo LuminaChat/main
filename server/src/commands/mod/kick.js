@@ -31,7 +31,7 @@ export async function run(core, server, socket, data) {
   if (badClients.length === 0) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user(s) in channel',
+      text: '找不到用户',
     }, socket);
   }
 
@@ -41,7 +41,7 @@ export async function run(core, server, socket, data) {
     if (badClients[i].level >= socket.level) {
       server.reply({
         cmd: 'warn',
-        text: 'Cannot kick other users with the same level, how rude',
+        text: '踢出同级别用户？你6',
       }, socket);
     } else {
       kicked.push(badClients[i]);
@@ -69,10 +69,10 @@ export async function run(core, server, socket, data) {
 
     server.broadcast({
       cmd: 'info',
-      text: `${kicked[i].nick} was banished to ?${destChannel}`,
+      text: `${kicked[i].nick} 被踢到了 ?${destChannel}`,
     }, { channel: socket.channel, level: UAC.isModerator });
 
-    console.log(`${socket.nick} [${socket.trip}] kicked ${kicked[i].nick} in ${socket.channel} to ${destChannel} `);
+    console.log(`${socket.nick} [${socket.trip}] 把 ${kicked[i].nick} 从 ${socket.channel} 踢出到 ${destChannel} `);
   }
 
 
@@ -87,7 +87,7 @@ export async function run(core, server, socket, data) {
   // publicly broadcast kick event
   server.broadcast({
     cmd: 'info',
-    text: `Kicked ${kicked.map((k) => k.nick).join(', ')}`,
+    text: `已踢出 ${kicked.map((k) => k.nick).join(', ')}`,
   }, { channel: socket.channel, level: (level) => level < UAC.levels.moderator });
 
   // stats are fun
@@ -97,9 +97,10 @@ export async function run(core, server, socket, data) {
 }
 
 export const requiredData = ['nick'];
+// 等着做Text踢人功能（
 export const info = {
   name: 'kick',
-  description: 'Silently forces target client(s) into another channel. `nick` may be string or array of strings',
+  description: '安静地把人移到另一个房间（人话：踢人）. `nick` 可以为字符串或字符串数数组',
   usage: `
-    API: { cmd: 'kick', nick: '<target nick>', to: '<optional target channel>' }`,
+    API: { cmd: 'kick', nick: '<用户名>', to: '<可选：踢出到的频道>' }`,
 };

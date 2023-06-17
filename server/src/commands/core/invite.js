@@ -1,5 +1,6 @@
 /*
   Description: Generates a semi-unique channel name then broadcasts it to each client
+  已汉化
 */
 
 import * as UAC from '../utility/UAC/_info';
@@ -12,9 +13,9 @@ import * as UAC from '../utility/UAC/_info';
   */
 export function checkNickname (nick, inviterNick) {
   if (typeof nick !== 'string' || !UAC.verifyNickname(nick)) {
-    return "Nickname was invalid.";
+    return "这谁啊我不到啊。";
   } else if (nick === inviterNick) {
-    return "Why would you invite yourself?";
+    return "搁这自娱自乐呢?";
   }
 
   return null;
@@ -44,7 +45,7 @@ export function createRecipientPayload (inviter, channel) {
     cmd: 'info',
     type: 'invite',
     from: inviter,
-    text: `${inviter} invited you to ?${channel}`,
+    text: `${inviter} 要请你到 ?${channel}`,
   };
 }
 
@@ -58,7 +59,7 @@ export function createSuccessPayload (nick, channel) {
     cmd: 'info',
     type: 'invite',
     invite: channel,
-    text: `You invited ${nick} to ?${channel}`,
+    text: `你邀请了 ${nick} 到 ?${channel}`,
   };
 }
 
@@ -83,7 +84,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, 2)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are sending invites too fast. Wait a moment before trying again.',
+      text: '你~~过于热情~~ 发送邀请的次数太多了，请你稍后再试.',
     }, socket);
   }
 
@@ -111,7 +112,7 @@ export async function run(core, server, socket, data) {
   if (!inviteSent) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user in channel',
+      text: '找不到这个用户',
     }, socket);
   }
 
@@ -127,7 +128,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['nick'];
 export const info = {
   name: 'invite',
-  description: 'Sends an invite to the target client with the provided channel, or a random channel.',
+  description: '发送一个邀请',
   usage: `
-    API: { cmd: 'invite', nick: '<target nickname>', to: '<optional destination channel>' }`,
+    API: { cmd: 'invite', nick: '<目标名称>', to: '<可选的目标频道>' }`,
 };

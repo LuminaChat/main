@@ -15,7 +15,7 @@ export async function run(core, server, socket, data) {
   if (typeof data.ip !== 'string' && typeof data.hash !== 'string') {
     return server.reply({
       cmd: 'warn',
-      text: "hash:'targethash' or ip:'1.2.3.4' is required",
+      text: "需要一个目标hash或IP地址",
     }, socket);
   }
 
@@ -42,13 +42,13 @@ export async function run(core, server, socket, data) {
   // reply with success
   server.reply({
     cmd: 'info',
-    text: `Unbanned ${target}`,
+    text: `解除了对此hash或ip的封禁： ${target}`,
   }, socket);
 
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} unbanned: ${target}`,
+    text: `${socket.nick}#${socket.trip} 解除了对此hash或ip的封禁: ${target}`,
   }, { level: UAC.isModerator });
 
   // stats are fun
@@ -59,7 +59,7 @@ export async function run(core, server, socket, data) {
 
 export const info = {
   name: 'unban',
-  description: 'Removes target ip from the ratelimiter',
+  description: '将目标IP或hash移出频率限制名单',
   usage: `
-    API: { cmd: 'unban', ip/hash: '<target ip or hash>' }`,
+    API: { cmd: 'unban', ip/hash: '<ip或hash>' }`,
 };

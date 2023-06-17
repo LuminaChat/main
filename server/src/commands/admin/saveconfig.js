@@ -1,5 +1,6 @@
 /*
   Description: Writes the current config to disk
+  已汉化
 */
 
 import * as UAC from '../utility/UAC/_info';
@@ -15,14 +16,14 @@ export async function run(core, server, socket) {
   if (!core.configManager.save()) {
     return server.reply({
       cmd: 'warn',
-      text: 'Failed to save config, check logs.',
+      text: '无法保存配置，请查看日志.',
     }, socket);
   }
 
   // return success message to moderators and admins
   server.broadcast({
     cmd: 'info',
-    text: 'Config saved!',
+    text: '成功保存配置！',
   }, { level: UAC.isModerator });
 
   return true;
@@ -30,7 +31,7 @@ export async function run(core, server, socket) {
 
 export const info = {
   name: 'saveconfig',
-  description: 'Writes the current config to disk',
+  description: '将当前配置写入磁盘',
   usage: `
     API: { cmd: 'saveconfig' }`,
 };

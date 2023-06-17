@@ -1,5 +1,6 @@
 /*
   Description: Outputs the current command module list or command categories
+  已汉化
 */
 
 // module main
@@ -8,7 +9,7 @@ export async function run(core, server, socket, payload) {
   if (server.police.frisk(socket.address, 2)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '你发送的速度太快了，请稍后再试。',
     }, socket);
   }
 
@@ -19,7 +20,7 @@ export async function run(core, server, socket, payload) {
 
   let reply = '';
   if (typeof payload.command === 'undefined') {
-    reply += '# All commands:\n|Category:|Name:|\n|---:|---|\n';
+    reply += '# 所有指令:\n|分类:|指令名:|\n|---:|---|\n';
 
     const categories = core.commands.categoriesList.sort();
     for (let i = 0, j = categories.length; i < j; i += 1) {
@@ -28,20 +29,20 @@ export async function run(core, server, socket, payload) {
       reply += `${catCommands.map((c) => `${c.info.name}`).join(', ')}|\n`;
     }
 
-    reply += '---\nFor specific help on certain commands, use either:\nText: `/help <command name>`\nAPI: `{cmd: \'help\', command: \'<command name>\'}`';
+    reply += '---\n对于指定命令的详细帮助菜单:\n文本: `/help <指令名>`\nAPI: `{cmd: \'help\', command: \'<指令名>\'}`';
   } else {
     const command = core.commands.get(payload.command);
 
     if (typeof command === 'undefined') {
-      reply += 'Unknown command';
+      reply += '未知命令';
     } else {
       reply += `# ${command.info.name} command:\n| | |\n|---:|---|\n`;
-      reply += `|**Name:**|${command.info.name}|\n`;
-      reply += `|**Aliases:**|${typeof command.info.aliases !== 'undefined' ? command.info.aliases.join(', ') : 'None'}|\n`;
-      reply += `|**Category:**|${command.info.category.replace('../src/commands/', '').replace(/^\w/, (c) => c.toUpperCase())}|\n`;
-      reply += `|**Required Parameters:**|${command.requiredData || 'None'}|\n`;
-      reply += `|**Description:**|${command.info.description || '¯\_(ツ)_/¯'}|\n\n`;
-      reply += `**Usage:** ${command.info.usage || command.info.name}`;
+      reply += `|**名称:**|${command.info.name}|\n`;
+      reply += `|**别名:**|${typeof command.info.aliases !== 'undefined' ? command.info.aliases.join(', ') : 'None'}|\n`;
+      reply += `|**分类:**|${command.info.category.replace('../src/commands/', '').replace(/^\w/, (c) => c.toUpperCase())}|\n`;
+      reply += `|**必须参数:**|${command.requiredData || '无'}|\n`;
+      reply += `|**介绍:**|${command.info.description || '无 *¯\_(ツ)_/¯*'}|\n\n`;
+      reply += `**用法:** ${command.info.usage || command.info.name}`;
     }
   }
 
@@ -81,8 +82,8 @@ export function helpCheck(core, server, socket, payload) {
 
 export const info = {
   name: 'help',
-  description: 'Outputs information about the servers current protocol',
+  description: '输出帮助菜单',
   usage: `
-    API: { cmd: 'help', command: '<optional command name>' }
-    Text: /help <optional command name>`,
+    API: { cmd: 'help', command: '<可选的指令名>' }
+    Text: /help <可选的指令名>`,
 };

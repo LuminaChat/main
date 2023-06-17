@@ -1,5 +1,6 @@
 /*
   Description: Changes the current channel of the calling socket
+  NO！
 */
 
 // module main
@@ -8,7 +9,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, 6)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are changing channels too fast. Wait a moment before trying again.',
+      text: '你换频道的速度太快了。在再次尝试之前，请等待片刻。',
     }, socket);
   }
 
@@ -20,7 +21,7 @@ export async function run(core, server, socket, data) {
   if (data.channel === '') {
     return server.reply({
       cmd: 'warn',
-      text: 'Cannot move to an empty channel.',
+      text: '不能移动到一个空频道。',
     }, socket);
   }
 
@@ -107,7 +108,7 @@ export function moveCheck(core, server, socket, payload) {
     if (input[1] === undefined) {
       server.reply({
         cmd: 'warn',
-        text: 'Refer to `/help move` for instructions on how to use this command.',
+        text: '关于如何使用这个命令，请参考`/help move`的说明。',
       }, socket);
 
       return false;
@@ -127,8 +128,8 @@ export function moveCheck(core, server, socket, payload) {
 export const requiredData = ['channel'];
 export const info = {
   name: 'move',
-  description: 'This will change your current channel to the new one provided',
+  description: '这将把你当前的频道改变为新的频道。',
   usage: `
-    API: { cmd: 'move', channel: '<target channel>' }
-    Text: /move <new channel>`,
+    API: { cmd: 'move', channel: '<目标频道>' }
+    Text: /move <新频道>`,
 };

@@ -26,7 +26,7 @@ export async function run(core, server, socket, data) {
   if (badClients.length === 0) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user in channel',
+      text: '无法在这个频道找到这个用户',
     }, socket);
   }
 
@@ -35,7 +35,7 @@ export async function run(core, server, socket, data) {
   if (badClient.level >= socket.level) {
     return server.reply({
       cmd: 'warn',
-      text: 'Cannot move other users of the same level, how rude',
+      text: '你不能移动同级别或更同级别的用户，这很不礼貌',
     }, socket);
   }
 
@@ -94,7 +94,7 @@ export async function run(core, server, socket, data) {
 
   server.broadcast({
     cmd: 'info',
-    text: `${badClient.nick} was moved into ?${data.channel}`,
+    text: `${badClient.nick} 被移动到了 ?${data.channel}`,
   }, { channel: data.channel });
 
   return true;

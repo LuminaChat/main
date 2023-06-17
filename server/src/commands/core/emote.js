@@ -1,5 +1,6 @@
 /*
   Description: Broadcasts an emote to the current channel
+  已汉化
 */
 
 // module support functions
@@ -34,7 +35,7 @@ export async function run(core, server, socket, payload) {
   if (server.police.frisk(socket.address, score)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '你发的消息太多了！请稍后再试',
     }, socket);
   }
 
@@ -76,7 +77,7 @@ export function emoteCheck(core, server, socket, payload) {
     if (input[1] === undefined) {
       server.reply({
         cmd: 'warn',
-        text: 'Refer to `/help emote` for instructions on how to use this command.',
+        text: '使用`/help emote`查看这个命令的帮助',
       }, socket);
 
       return false;
@@ -99,8 +100,8 @@ export function emoteCheck(core, server, socket, payload) {
 export const requiredData = ['text'];
 export const info = {
   name: 'emote',
-  description: 'Typical emote / action text',
+  description: '情绪/动作文本',
   usage: `
-    API: { cmd: 'emote', text: '<emote/action text>' }
-    Text: /me <emote/action text>`,
+  API: { cmd: 'emote', text: '<情绪/动作文本>' }
+  文本: /me <情绪/动作文本>`,
 };

@@ -39,7 +39,7 @@ export async function run(core, server, socket, data) {
   // notify all mods
   server.broadcast({
     cmd: 'info',
-    text: `Added mod: ${data.trip}`,
+    text: `添加了一个管理员识别码：${data.trip}`,
   }, { level: UAC.isModerator });
 
   return true;
@@ -48,7 +48,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['trip'];
 export const info = {
   name: 'addmod',
-  description: 'Adds target trip to the config as a mod and upgrades the socket type',
+  description: '添加一个管理员识别码到配置文件中',
   usage: `
-    API: { cmd: 'addmod', trip: '<target trip>' }`,
+    API: { cmd: 'addmod', trip: '<识别码>' }`,
 };

@@ -42,15 +42,15 @@ export async function run(core, server, socket) {
   // dispatch info
   server.reply({
     cmd: 'info',
-    text: stripIndents`current-connections: ${uniqueClientCount}
-                       current-channels: ${uniqueChannels}
-                       users-joined: ${(core.stats.get('users-joined') || 0)}
-                       invites-sent: ${(core.stats.get('invites-sent') || 0)}
-                       messages-sent: ${(core.stats.get('messages-sent') || 0)}
-                       users-banned: ${(core.stats.get('users-banned') || 0)}
-                       users-kicked: ${(core.stats.get('users-kicked') || 0)}
-                       stats-requested: ${(core.stats.get('stats-requested') || 0)}
-                       server-uptime: ${formatTime(process.hrtime(core.stats.get('start-time')))}`,
+    text: stripIndents`连接数量: ${uniqueClientCount}
+                       频道数量: ${uniqueChannels}
+                      加入次数: ${(core.stats.get('users-joined') || 0)}
+                       邀请次数: ${(core.stats.get('invites-sent') || 0)}
+                       消息发送次数: ${(core.stats.get('messages-sent') || 0)}
+                       用户封禁数量: ${(core.stats.get('users-banned') || 0)}
+                       用户踢出数量: ${(core.stats.get('users-kicked') || 0)}
+                       统计信息请求次数: ${(core.stats.get('stats-requested') || 0)}
+                      服务器在线时间: ${formatTime(process.hrtime(core.stats.get('start-time')))}`,
   }, socket);
 
   // stats are fun
@@ -81,8 +81,8 @@ export function statsCheck(core, server, socket, payload) {
 
 export const info = {
   name: 'morestats',
-  description: 'Sends back current server stats to the calling client',
+  description: '向调用的客户端发送当前的服务器统计信息',
   usage: `
     API: { cmd: 'morestats' }
-    Text: /stats`,
+    文本: /stats`,
 };

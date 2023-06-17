@@ -1,5 +1,6 @@
 /*
   Description: Outputs all current channels and their user nicks
+  已汉化
 */
 
 import * as UAC from '../utility/UAC/_info';
@@ -45,7 +46,7 @@ export async function run(core, server, socket) {
 
 export const info = {
   name: 'listusers',
-  description: 'Outputs all current channels and sockets in those channels',
+  description: '输出所有在线用户',
   usage: `
     API: { cmd: 'listusers' }`,
 };

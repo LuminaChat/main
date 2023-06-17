@@ -1,5 +1,6 @@
 /*
   Description: Removes target trip from the config as a mod and downgrades the socket type
+  已汉化
 */
 
 import * as UAC from '../utility/UAC/_info';
@@ -25,7 +26,7 @@ export async function run(core, server, socket, data) {
       // inform ex-mod
       server.send({
         cmd: 'info',
-        text: 'You are now a user.',
+        text: '你被革职了，哈。哈。哈。',
       }, targetMod[i]);
     }
   }
@@ -33,15 +34,15 @@ export async function run(core, server, socket, data) {
   // return success message
   server.reply({
     cmd: 'info',
-    text: `Removed mod trip: ${
+    text: `删除了一个管理员: ${
       data.trip
-    }, remember to run 'saveconfig' to make it permanent`,
+    }, 记得运行\`saveconfig\`，不然他的权限还会回来`,
   }, socket);
 
   // notify all mods
   server.broadcast({
     cmd: 'info',
-    text: `Removed mod: ${data.trip}`,
+    text: `移除管理员: ${data.trip}`,
   }, { level: UAC.isModerator });
 
   return true;
@@ -50,7 +51,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['trip'];
 export const info = {
   name: 'removemod',
-  description: 'Removes target trip from the config as a mod and downgrades the socket type',
+  description: '移除一个管理员',
   usage: `
-    API: { cmd: 'removemod', trip: '<target trip>' }`,
+    API: { cmd: 'removemod', trip: '<目标用户识别码>' }`,
 };

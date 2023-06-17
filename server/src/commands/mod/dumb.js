@@ -31,7 +31,7 @@ export async function run(core, server, socket, data) {
   if (badClient.length === 0) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user in channel',
+      text: '无法在频道中找到用户',
     }, socket);
   }
 
@@ -41,7 +41,7 @@ export async function run(core, server, socket, data) {
   if (badClient.level >= socket.level) {
     return server.reply({
       cmd: 'warn',
-      text: 'This trick wont work on users of the same level',
+      text: '这一招对同一级别的用户不起作用。',
     }, socket);
   }
 
@@ -156,7 +156,7 @@ export function whisperCheck(core, server, socket, payload) {
     server.reply({
       cmd: 'info',
       type: 'whisper',
-      text: `You whispered to @${targetNick}: ${payload.text}`,
+      text: `你悄悄对 ${targetNick} 说: ${payload.text}`,
     }, socket);
 
     // blanket "spam" protection, may expose the ratelimiting lines from `chat` and use that, TODO: one day #lazydev
@@ -171,8 +171,8 @@ export function whisperCheck(core, server, socket, payload) {
 export const requiredData = ['nick'];
 export const info = {
   name: 'dumb',
-  description: 'Globally shadow mute a connection. Optional allies array will see muted messages.',
+  description: '禁言一个用户',
   usage: `
-    API: { cmd: 'dumb', nick: '<target nick>', allies: ['<optional nick array>', ...] }`,
+    API: { cmd: 'dumb', nick: '<呢称>', allies: ['呢称数组>', ...] }`,
 };
 info.aliases = ['muzzle', 'mute'];

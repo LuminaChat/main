@@ -1,5 +1,7 @@
 /*
   Description: Rebroadcasts any `text` to all clients in a `channel`
+  这个模块最重要啦（
+  已汉化
 */
 
 import * as UAC from '../utility/UAC/_info';
@@ -36,7 +38,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, score)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '你发送消息的速度太快了，请稍后重试。',
     }, socket);
   }
 
@@ -82,7 +84,7 @@ export function commandCheckIn(core, server, socket, payload) {
   if (payload.text.startsWith('/myhash')) {
     server.reply({
       cmd: 'info',
-      text: `Your hash: ${socket.hash}`,
+      text: `你的Hash为 ${socket.hash}`,
     }, socket);
 
     return false;
@@ -108,7 +110,7 @@ export function finalCmdCheck(core, server, socket, payload) {
 
   server.reply({
     cmd: 'warn',
-    text: `Unknown command: ${payload.text}`,
+    text: `未知命令: ${payload.text}`,
   }, socket);
 
   return false;
@@ -117,10 +119,10 @@ export function finalCmdCheck(core, server, socket, payload) {
 export const requiredData = ['text'];
 export const info = {
   name: 'chat',
-  description: 'Broadcasts passed `text` field to the calling users channel',
+  description: '在这个频道内发送一条消息',
   usage: `
-    API: { cmd: 'chat', text: '<text to send>' }
-    Text: Uuuuhm. Just kind type in that little box at the bottom and hit enter.\n
-    Bonus super secret hidden commands:
+    API: { cmd: 'chat', text: '<文本>' }
+    Text: 在文本输入框里面打字，然后用你的手用力按下回车键。\n
+    ~~宇宙超级无敌隐藏牛逼哄哄的指令~~:
     /myhash`,
 };

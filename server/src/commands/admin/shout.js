@@ -1,5 +1,6 @@
 /*
   Description: Emmits a server-wide message as `info`
+  已汉化
 */
 
 import * as UAC from '../utility/UAC/_info';
@@ -14,7 +15,7 @@ export async function run(core, server, socket, data) {
   // send text to all channels
   server.broadcast({
     cmd: 'info',
-    text: `Server Notice: ${data.text}`,
+    text: `全体通知: ${data.text}`,
   }, {});
 
   return true;
@@ -23,7 +24,7 @@ export async function run(core, server, socket, data) {
 export const requiredData = ['text'];
 export const info = {
   name: 'shout',
-  description: 'Displays passed text to every client connected',
+  description: '全服喊话',
   usage: `
-    API: { cmd: 'shout', text: '<shout text>' }`,
+    API: { cmd: 'shout', text: '<消息>' }`,
 };

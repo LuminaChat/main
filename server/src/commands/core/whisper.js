@@ -37,7 +37,7 @@ export async function run(core, server, socket, payload) {
   if (server.police.frisk(socket.address, score)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '你发送的消息太多了。请稍等，然后重试。',
     }, socket);
   }
 
@@ -52,7 +52,7 @@ export async function run(core, server, socket, payload) {
   if (targetClient.length === 0) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user in channel',
+      text: '在频道中找不到用户',
     }, socket);
   }
 
@@ -63,7 +63,8 @@ export async function run(core, server, socket, payload) {
     type: 'whisper',
     from: socket.nick,
     trip: socket.trip || 'null',
-    text: `${socket.nick} whispered: ${text}`,
+    text: `${socket.nick} 悄悄对你说: ${text}`,
+    rawtext: text,
   }, targetClient);
 
   targetClient.whisperReply = socket.nick;
@@ -71,7 +72,7 @@ export async function run(core, server, socket, payload) {
   server.reply({
     cmd: 'info',
     type: 'whisper',
-    text: `You whispered to @${targetNick}: ${text}`,
+    text: `你悄悄对 ${targetNick} 说: ${text}`,
   }, socket);
 
   return true;
@@ -95,7 +96,7 @@ export function whisperCheck(core, server, socket, payload) {
     if (input[1] === undefined) {
       server.reply({
         cmd: 'warn',
-        text: 'Refer to `/help whisper` for instructions on how to use this command.',
+        text: '有关如何使用此命令的说明，请参阅`/help whisper`。',
       }, socket);
 
       return false;
@@ -118,7 +119,7 @@ export function whisperCheck(core, server, socket, payload) {
     if (typeof socket.whisperReply === 'undefined') {
       server.reply({
         cmd: 'warn',
-        text: 'Cannot reply to nobody',
+        text: '无法回复不存在的用户',
       }, socket);
 
       return false;
@@ -143,10 +144,10 @@ export function whisperCheck(core, server, socket, payload) {
 export const requiredData = ['nick', 'text'];
 export const info = {
   name: 'whisper',
-  description: 'Display text on targets screen that only they can see',
+  description: '私聊',
   usage: `
-    API: { cmd: 'whisper', nick: '<target name>', text: '<text to whisper>' }
-    Text: /whisper <target name> <text to whisper>
-    Text: /w <target name> <text to whisper>
-    Alt Text: /r <text to whisper, this will auto reply to the last person who whispered to you>`,
+    API: { cmd: 'whisper', nick: '<呢称>', text: '<文本>' }
+    文本: /whisper <呢称> <文本>
+    文本: /w <呢称> <文本>
+    简短文本: /r <回复最后一个给你私信的人>`,
 };

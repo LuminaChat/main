@@ -21,13 +21,13 @@ export async function run(core, server, socket) {
   // reply with success
   server.reply({
     cmd: 'info',
-    text: 'Unbanned all ip addresses',
+    text: '已解除所有封禁',
   }, socket);
 
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} unbanned all ip addresses`,
+    text: `${socket.nick}#${socket.trip} 解除了所有封禁`,
   }, { level: UAC.isModerator });
 
   return true;
@@ -35,7 +35,7 @@ export async function run(core, server, socket) {
 
 export const info = {
   name: 'unbanall',
-  description: 'Clears all banned ip addresses',
+  description: '解除所有封禁',
   usage: `
     API: { cmd: 'unbanall' }`,
 };
