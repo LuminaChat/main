@@ -242,7 +242,7 @@ ul ul, ol ol {
     padding-bottom: 1.5em;
   }
   .nick {
-    margin: 0;
+    margin: 5px;
     float: none;
     text-align: left;
     display: inline;
