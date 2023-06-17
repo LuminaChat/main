@@ -11,6 +11,9 @@
   --code-number:#b5cea8;
   --code-special:#9cdcfe;
 }
+*,textarea{
+font-family:Consolas,"Cascadia Mono","Ubuntu Mono",Melon,"Lucida Console","Microsoft Yahei UI","PingFang SC","SimHei";
+}
 body {
   background: var(--code-background);
   color: var(--code-default);
@@ -20,10 +23,10 @@ textarea {
   color: var(--code-default);
 }
 .message {
-  border-left: 1px solid rgba(125, 122, 104, 0.5);
+  border-left: 1px solid rgba(125， 122， 104， 0.5);
 }
 .refmessage {
-  border-left: 1px solid rgba(125, 122, 104, 1);
+  border-left: 1px solid rgba(125， 122， 104， 1);
 }
 .nick {
   color: var(--code-item);
