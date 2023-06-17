@@ -119,25 +119,27 @@ var verifyNickname = function (nick) {
 var frontpage = `
 # Lumina.Chat
 
-**********
+***
 
 欢迎来到Lumina.Chat, 一个简洁主题的聊天室。
 Lumina是拉丁语中“光”的意思，我们希望此聊天室像阳光一样充满活力和生机。
 
-**********
+***
 
 主聊天室: ?main
+
+***
 
 您也可以自己创建聊天室，用以下链接来创建：
 \`${document.location.href}?<你的聊天室名称>\`
 聊天室名称最好是纯英文。
 
-**********
+***
 
-我们欢迎开发者们的贡献！
+我们欢迎且诚挚的感谢开发者们的贡献！
 查看我们的 Github 仓库：https://github.com/LuminaChat/main
 
-**********
+***
 
 呈上，
 LuminaChat [开发组](https://github.com/orgs/LuminaChat/people) 和 [社区贡献者们](https://github.com/LuminaChat/main/graphs/contributors)
