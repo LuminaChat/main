@@ -239,7 +239,7 @@ ul ul, ol ol {
     padding: 0.5em;
   }
   .message {
-    padding-bottom: 0.5em;
+    padding-bottom: 1.5em;
   }
   .nick {
     margin: 0;
@@ -248,7 +248,8 @@ ul ul, ol ol {
     display: inline;
   }
   .text {
-    display: inline;
+    display: inline-block;
+    width:90%;
   }
   #sidebar {
     bottom: auto;
