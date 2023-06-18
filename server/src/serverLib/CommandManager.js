@@ -92,7 +92,7 @@ class CommandManager {
     if (!command.category) {
       const base = join(this.core.dynamicImports.base, 'commands');
 
-      let category = 'Uncategorized';
+      let category = '未分类';
       if (file.indexOf(sep) > -1) {
         category = dirname(relative(base, file))
           .replace(new RegExp(sep.replace('\\', '\\\\'), 'g'), '/');
@@ -109,7 +109,7 @@ class CommandManager {
       try {
         command.init(this.core);
       } catch (err) {
-        const errText = `Failed to initialize '${name}': ${err}`;
+        const errText = `初始化失败 '${name}': ${err}`;
         console.log(errText);
         return errText;
       }
@@ -232,7 +232,7 @@ class CommandManager {
       return this.handleCommand(server, socket, {
         cmd: 'socketreply',
         cmdKey: server.cmdKey,
-        text: `Command not found, did you mean: \`${maybe}\`?`,
+        text: `没有找到命令，你是不是想运行: \`${maybe}\`?`,
       });
     }
 
@@ -240,7 +240,7 @@ class CommandManager {
     return this.handleCommand(server, socket, {
       cmd: 'socketreply',
       cmdKey: server.cmdKey,
-      text: 'Unknown command',
+      text: '未知命令',
     });
   }
 
@@ -268,9 +268,7 @@ class CommandManager {
         this.handleCommand(server, socket, {
           cmd: 'socketreply',
           cmdKey: server.cmdKey,
-          text: `Failed to execute '${
-            command.info.name
-          }': missing required ${missing.join(', ')}\n\n`,
+          text: `执行'${command.info.name}'失败：缺少必要参数 ${missing.join(', ')}\n\n`,
         });
 
         return null;
@@ -280,7 +278,7 @@ class CommandManager {
     try {
       return await command.run(this.core, server, socket, data);
     } catch (err) {
-      const errText = `Failed to execute '${command.info.name}': `;
+      const errText = `无法执行 '${command.info.name}': `;
 
       // If we have more detail enabled, then we get the trace
       // if it isn't, or the property doesn't exist, then we'll get only the message
