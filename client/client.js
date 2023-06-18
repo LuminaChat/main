@@ -6,7 +6,7 @@
  * and will not actively be updated.
  *
 */
-var clientversion='lmc-1.0-dev';
+const clientversion='lmc-1.0-dev';
 //select "chatinput" on "/"
 document.addEventListener("keydown", e => {
 	if (e.key === '/' && document.getElementById("chatinput") != document.activeElement) {
@@ -120,7 +120,7 @@ md.use(remarkableKatex);
 function verifyLink(link) {
 	var linkHref = Remarkable.utils.escapeHtml(Remarkable.utils.replaceEntities(link.href));
 	if (linkHref !== link.innerHTML) {
-		return confirm('警告！你即将离开LuminaChat，前往：' + linkHref);
+		return confirm('警告！你即将离开这里，前往：' + linkHref);
 	}
 
 	return true;
@@ -132,7 +132,7 @@ var verifyNickname = function (nick) {
 
 var frontpage = `
 # Lumina.Chat
-版本: `+clientversion+`
+版本: ${clientversion}
 
 ***
 
@@ -153,11 +153,43 @@ Lumina是拉丁语中“光”的意思，我们希望此聊天室像阳光一�
 
 我们欢迎且诚挚的感谢开发者们的贡献！
 查看我们的 Github 仓库：https://github.com/LuminaChat/main
+如果你有问题，可以去查看[FAQ(常见问题)表](/faqs.html)。
 
 ***
 
 呈上，
 LuminaChat [开发组](https://github.com/orgs/LuminaChat/people) 和 [社区贡献者们](https://github.com/LuminaChat/main/graphs/contributors)
+`
+
+var faqs = `
+# LuminaChat 常见问答页面
+
+******************************
+
+### Q1: 这是什么？
+这是一个简洁开源美观并且匿名的聊天应用。
+*****
+
+### Q2: 这里安全吗？
+安全。甚至您连接时的IP都被加密。但是如果您闹出了事并影响了他人聊天，我们不保证不会采取*特殊手段*。
+*****
+
+### Q3: 我可以DDoS你们的服务器吗？
+~~当然，如果您想吃牢饭的话。~~
+注: LuminaChat目前聊天服务器处于中国大陆境内。
+*****
+
+### Q4: 名字前面那串*乱码*是什么？
+那是识别码，一种身份辨别手段。
+你也可以拥有你自己的识别码，只需要在名称框内按\`用户#密码\`的格式填入信息即可。
+只要密码不变，识别码也不会变。
+千千万万不要泄露您的密码！
+
+**********
+
+### 我还有其他问题！
+去[公共频道](/?main)或者[HackChat](https://hack.chat/?your-channel)和[ZhangChat](https://chat.zhangsoft.cf/?chat)来找我们。
+当然，最好去[Github](https://github.com/LuminaChat/main/issues)给我们提出Issues.
 `
 
 function $(query) {
@@ -326,7 +358,7 @@ function join(channel) {
 		// 如果你修改了端口号，
 		// 那么就需要在这里修改（如:8080）
 		// 如果你修改了ws的路径，
-		// 也要在这里修改（如：/dqj_ws）
+		// 也要在这里修改（如：/chat_ws）
 		var wsPath = ':6060';
 		ws = new WebSocket(protocol + '//' + document.location.hostname + wsPath);
 	}
@@ -882,7 +914,12 @@ $('#highlight-selector').value = currentHighlight;
 /* main */
 
 if (myChannel == '') {
-	pushMessage({ text: frontpage });
+	if (document.location.pathname == "/"){
+		pushMessage({ text: frontpage });
+	}
+	if(document.location.pathname == "/faqs.html"){
+		pushMessage({ text: faqs })
+	}
 	$('#footer').classList.add('hidden');
 	$('#sidebar').classList.add('hidden');
 } else {
