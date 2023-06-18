@@ -319,7 +319,7 @@ function notify(args) {
 function join(channel) {
 	if (document.location.hostname == 'lumina.chat') {
 		// For https://lumina.chat/
-		ws = new WebSocket('ws://103.163.47.126:6060/'); //this is prod, crazy!
+		ws = new WebSocket('ws://103.163.47.126:11451/'); //homo port
 	} else {
 		// for local installs
 		var protocol = location.protocol === 'https:' ? 'wss:' : 'ws:'
