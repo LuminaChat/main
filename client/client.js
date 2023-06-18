@@ -512,6 +512,18 @@ var localCommands = {
 				ip: args[1]
 			}))
 		}
+	},
+	reload: function (text) {
+		send(
+			{cmd: 'reload'}
+		)
+	},
+	shout: function (text) {
+		let content=text.slice(7)
+		send({
+			cmd: "shout",
+			text: content
+		})
 	}
 
 };
