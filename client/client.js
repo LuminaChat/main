@@ -473,66 +473,87 @@ var COMMANDS = {
 	}
 }
 var localCommands = {
-	dumb: function (text) {
-		let args = text.split(' ');
-		ws.send(JSON.stringify({cmd:'dumb',nick:args[1]}));
-		/*ws.send(JSON.stringify(args.length > 1 ?
-			{ cmd: "dumb",  nick: args[0] } : { cmd: 'dumb', nick: args[0], time: args[1] }));*/
-			 
+	dumb: function (e) {
+		ws.send(JSON.stringify({ cmd: 'dumb', nick: e.args[0] }));
+		/*ws.send(JSON.stringify(e.args.length > 1 ?
+			{ cmd: "dumb",  nick: e.args[0] } : { cmd: 'dumb', nick: e.args[0], time: e.args[1] }));*/
+
 	},
-	kick: function (text) {
-		let args = text.split(" ");
-		send(args.length >= 2 ? { cmd: 'kick', nick: args[1] } : { cmd: 'kick', nick: args[1], to: args[2] })
+	kick(e) {
+		send(e.args.length >= 2 ? { cmd: 'kick', nick: e.args[0] } : { cmd: 'kick', nick: e.args[0], to: e.args[1] })
 	},
-	ban: function (text) {
-		let nick = text.split(" ")[1];
+	ban(e) {
 		ws.send(JSON.stringify({
 			cmd: 'ban',
-			nick: nick
+			nick: e.args[0]
 		}))
 	},
-	moveuser: function (text) {
-		let args = text.split(' ');
+	moveuser(e) {
 		ws.send(JSON.stringify({
 			cmd: 'moveuser',
-			nick: args[1],
-			channel: args[2]
+			nick: e.args[0],
+			channel: e.args[1]
 		}))
 	},
-	speak: function (text) {
-		let args = text.split(' ');
-		if (args[1].indexOf(".") == -1) {
+	speak(e) {
+		if (e.args[0].indexOf(".") == -1) {
 			ws.send(JSON.stringify({
 				cmd: 'speak',
-				hash: args[1]
+				hash: e.args[0]
 			}))
 		} else {
 			ws.send(JSON.stringify({
 				cmd: 'speak',
-				ip: args[1]
+				ip: e.args[0]
 			}))
 		}
 	},
-	reload: function (text) {
-		send(
-			{cmd: 'reload'}
-		)
+	reload() {
+		sendEx('reload');
 	},
-	shout: function (text) {
-		let content=text.slice(7)
+	shout(e) {
 		send({
 			cmd: "shout",
-			text: content
+			text: e.text
 		})
-	}
+	},
+	story() {
+		send({ cmd: 'chat', text: '我们不该是书写自己的故事\n\n而这不过是其中的一章\n在你书写我们的故事前\n请确定双手的干净' })
+	},
+	addmod(e) {
+		send({ cmd: 'addmod', trip: e.args[0] })
+	},
+	removemod(e){
+		send({ cmd: 'removemod', trip: e.args[0] })
+	},
+	byebye() {
+		//彩蛋*2
+		window.close()
+	},
+	unbanall(e){
+		sendEx('unbanall');
+	},
+	
+	listusers(e){
+		sendEx('listusers');
+	},
+
 
 };
-function commandHook(text) {
-	if (!isCommand(text)) {
+function commandHook(e) {
+	if (!isCommand(e)) {
 		return
 	}
-	let cmdname = text.split(" ")[0].split("/")[1];
-	localCommands[cmdname](text);
+	var args = e.split(' ');
+	let cmdname = args[0].split("/")[1];
+	localCommands[cmdname]({
+		text: args.slice(1).join(' '), //完整传入的参数
+		rawtext: e,                    //用户发送的完整内容
+		name: cmdname,                 //命令名称
+		args: args.slice(1)            //已分割的命令参数
+	});
+
+
 }
 
 function isCommand(text) {
@@ -714,10 +735,15 @@ function insertAtCursor(text) {
 	updateInputSize();
 }
 
+function sendEx(cmd, args) {
+	send({ cmd, ...args });
+}
+
 function send(data) {
 	if (ws && ws.readyState == ws.OPEN) {
 		ws.send(JSON.stringify(data));
-	}
+		return true
+	} else return false
 }
 
 var windowActive = true;

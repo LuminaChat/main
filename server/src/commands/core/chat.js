@@ -63,7 +63,7 @@ export async function run(core, server, socket, data) {
   // 发送
   server.broadcast(payload, { channel: socket.channel });
 
-  // 数据统计？（娱乐用的）
+  // stats are fun
   core.stats.increment('messages-sent');
 
   return true;
