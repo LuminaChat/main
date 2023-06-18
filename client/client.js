@@ -1048,7 +1048,13 @@ function userIgnore(nick) {
 var schemes = [
 	"default",
 	"lax",
-	"mdui"
+	"mdui",
+	"vscode",
+	"winaero-dark",
+	"winaero-light",
+	"banana",
+	"hacker",
+	"rainbow"
 ];
 
 var highlights = [
