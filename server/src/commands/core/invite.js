@@ -13,9 +13,9 @@ import * as UAC from '../utility/UAC/_info';
   */
 export function checkNickname (nick, inviterNick) {
   if (typeof nick !== 'string' || !UAC.verifyNickname(nick)) {
-    return "这谁啊我不到啊。";
+    return "抱歉，你指定的用户参数不合法！";
   } else if (nick === inviterNick) {
-    return "搁这自娱自乐呢?";
+    return "抱歉，你不能邀请自己！";
   }
 
   return null;
@@ -45,7 +45,7 @@ export function createRecipientPayload (inviter, channel) {
     cmd: 'info',
     type: 'invite',
     from: inviter,
-    text: `${inviter} 要请你到 ?${channel}`,
+    text: `${inviter} 邀请你去  ?${channel}`,
   };
 }
 
@@ -84,7 +84,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, 2)) {
     return server.reply({
       cmd: 'warn',
-      text: '你~~过于热情~~ 发送邀请的次数太多了，请你稍后再试.',
+      text: '想用邀请刷屏？没门！', //cmd：仿csc
     }, socket);
   }
 

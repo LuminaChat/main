@@ -13,7 +13,7 @@ export async function run(core, server, socket, payload) {
     }, socket);
   }
 
-  // verify user input
+  // 检查用户的输入
   if (typeof payload.command !== 'undefined' && typeof payload.command !== 'string') {
     return true;
   }
