@@ -29,6 +29,7 @@ const SessionLocation = './session.key';
   * @param {Object} core
   * @returns {object}
   */
+//直接拿这玩意骗人
 export function getSession(socket, core) {
   return jsonwebtoken.sign({
     channel: socket.channel,

@@ -40,6 +40,7 @@ export const Errors = {
 
   Invite: {
     RATELIMIT: InviteErrors + 1,
+    // UNKNOWN_USER: InviteErrors + 2,
   },
 
   Session: {
