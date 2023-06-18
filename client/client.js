@@ -339,7 +339,7 @@ function join(channel) {
 			if (location.hash) {
 				myNick = location.hash.substr(1);
 			} else {
-				var newNick = prompt('输入你的名称', myNick);
+				var newNick = prompt('* 为加入的用户取名……（最好使用“名称#密码”的格式）', myNick);
 				if (newNick !== null) {
 					myNick = newNick;
 				} else {
@@ -359,7 +359,7 @@ function join(channel) {
 
 	ws.onclose = function () {
 		if (wasConnected) {
-			pushMessage({ nick: '!', text: "连接断开，正在尝试重连..." });
+			pushMessage({ nick: '!', text: "掉线了！正在尝试重连..." });
 		}
 
 		window.setTimeout(function () {
