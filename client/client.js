@@ -475,7 +475,7 @@ var COMMANDS = {
 var localCommands = {
 	dumb: function (text) {
 		let args = text.split(' ');
-		ws.send(JSON.stringify({cmd:'dumb',nick:args[0]}));
+		ws.send(JSON.stringify({cmd:'dumb',nick:args[1]}));
 		/*ws.send(JSON.stringify(args.length > 1 ?
 			{ cmd: "dumb",  nick: args[0] } : { cmd: 'dumb', nick: args[0], time: args[1] }));*/
 			 
