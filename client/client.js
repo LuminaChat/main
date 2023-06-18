@@ -339,7 +339,7 @@ function join(channel) {
 			if (location.hash) {
 				myNick = location.hash.substr(1);
 			} else {
-				var newNick = prompt('* 为加入的用户取名……（最好使用“名称#密码”的格式）', myNick);
+				var newNick = prompt('输入您的用户名', myNick);
 				if (newNick !== null) {
 					myNick = newNick;
 				} else {
