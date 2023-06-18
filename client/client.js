@@ -1047,7 +1047,8 @@ function userIgnore(nick) {
 
 var schemes = [
 	"default",
-	"lax"
+	"lax",
+	"mdui"
 ];
 
 var highlights = [
