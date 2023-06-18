@@ -10,7 +10,7 @@ const crypto = require('crypto');
 const hash = (password) => {
   const sha = crypto.createHash('sha256');
   sha.update(password);
-  return sha.digest('base64').substr(0, 8);
+  return sha.digest('base64').substr(0, 6);
 };
 
 // exposed "login" function to allow hooks to verify user join events
@@ -46,7 +46,7 @@ export function parseNickname(core, data) {
     userInfo.level = UAC.levels.admin;
   } else if (userInfo.nick.toLowerCase() === core.config.adminName.toLowerCase()) {
     // they've got the main-admin name while not being an admin
-    return '你不是管理员，滚开';
+    return '你不是站长，滚开';
   } else if (password) {
     userInfo.trip = hash(password + core.config.tripSalt);
   }
