@@ -84,7 +84,7 @@ class CommandManager {
     const error = this.validateCommand(command);
 
     if (error) {
-      const errText = `Failed to load command module '${name}': ${error}`;
+      const errText = `无法加载命令模块 '${name}': ${error}`;
       console.log(errText);
       return errText;
     }
