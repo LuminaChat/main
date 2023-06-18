@@ -69,7 +69,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, 3)) {
     return server.reply({
       cmd: 'warn',
-      text: '抱歉，你可能正在进行刷屏操作，已被服务器保护装置拦截，请稍后再试！',
+      text: '您的操作过快，请稍后再试。',
     }, socket);
   }
 
