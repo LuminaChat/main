@@ -1059,7 +1059,9 @@ var schemes = [
 	"winaero-light",
 	"banana",
 	"rainbow",
-	"tomorrow"
+	"tomorrow",
+	"blind",
+	"amoled"
 ];
 
 var highlights = [
