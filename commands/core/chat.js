@@ -87,7 +87,7 @@ export async function run({
   if (server.police.frisk(socket.address, score)) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '太快了！',
       channel: socket.channel, // @todo Multichannel
     }, socket);
   }
@@ -199,7 +199,7 @@ export function finalCmdCheck({ server, socket, payload }) {
 
   server.reply({
     cmd: 'warn', // @todo Add numeric error code as `id`
-    text: `Unknown command: ${payload.text}`,
+    text: `未知命令: ${payload.text}`,
     channel: socket.channel, // @todo Multichannel
   }, socket);
 

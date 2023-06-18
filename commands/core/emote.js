@@ -49,7 +49,7 @@ export async function run({ server, socket, payload }) {
   if (server.police.frisk(socket.address, score)) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '太快了！',
       channel: socket.channel, // @todo Multichannel
     }, socket);
   }
@@ -109,7 +109,7 @@ export function emoteCheck({
     if (input[1] === undefined) {
       server.reply({
         cmd: 'warn', // @todo Add numeric error code as `id`
-        text: 'Refer to `/help emote` for instructions on how to use this command.',
+        text: '使用`/help emote`查看命令帮助',
         channel: socket.channel, // @todo Multichannel
       }, socket);
 

@@ -43,7 +43,7 @@ export async function run({
   if (server.police.frisk(socket.address, 2)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are sending invites too fast. Wait a moment before trying again.',
+      text: '太快了！',
       id: Errors.Invite.RATELIMIT,
       channel: socket.channel, // @todo Multichannel
     }, socket);
