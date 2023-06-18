@@ -6,7 +6,7 @@
  * and will not actively be updated.
  *
 */
-const clientversion = 'lmc-1.0-dev';
+const clientversion = 'lmc-1.0-release';
 //select "chatinput" on "/"
 document.addEventListener("keydown", e => {
 	if (e.key === '/' && document.getElementById("chatinput") != document.activeElement) {
