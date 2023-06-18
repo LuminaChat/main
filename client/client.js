@@ -184,6 +184,22 @@ var faqs = `
 你也可以拥有你自己的识别码，只需要在名称框内按\`用户#密码\`的格式填入信息即可。
 只要密码不变，识别码也不会变。
 千千万万不要泄露您的密码！
+*****
+
+### Q5: 加入频道或聊天时一直提示 你可能操作太快了，或是被封禁了.
+你被频率限制（rl）了，请等待几分钟再试
+如果几分钟后还是这样子，证明你可能被封禁了
+*****
+
+### Q6: 为什么有时候聊天室屏幕会花花绿绿
+可能是有人在公屏或者私信你了rule
+（也可能是有人在邀请你时设置的频道是rule）
+你可以在侧边栏关闭Latex，然后记录发送rule的用户，然后向管理员举报
+*****
+
+### Q7: 这里的规则很严格吗？
+~~这里是无政府的2b2t~~
+这里并不严格，但不代表你可以肆意妄为
 
 **********
 
@@ -457,7 +473,16 @@ var COMMANDS = {
 		}
 	}
 }
-
+var handleCmds={
+	dumb:{
+		
+	}
+	
+};
+function handleCommand(data){
+ let res=handleCmds[data];
+ 
+}
 function pushMessage(args) {
 	// Message container
 	var messageEl = document.createElement('div');
@@ -505,6 +530,95 @@ function pushMessage(args) {
 			insertAtCursor("@" + args.nick + " ");
 			$('#chatinput').focus();
 		}
+		// Thanks to crosst.chat for this part of code!(reply)
+		nickLinkEl.oncontextmenu = function () {
+			// Temporary quick banning
+			if ( $('#chatinput').value.trim() == '#ban') {
+			  // Ban a user though a message
+			  if( args.type == 'chat') {
+				send({ cmd: 'ban', nick: args.nick });
+				return;
+			  }
+	  
+			  // Ban a user though a whisper
+			  if( args.type == 'whisper' && args.from) {
+				send({ cmd: 'ban', nick: args.from });
+				return;
+			  }
+	  
+			  // Ban a user though an invite
+			  if( args.type == 'invite') {
+				send({ cmd: 'ban', nick: args.from });
+				return;
+			  }
+	  
+			  // Ban a user though a online notice
+			  if( args.type == 'join') {
+				send({ cmd: 'ban', nick: args.text.split(' ')[0] });
+				return;
+			  }
+	  
+			  return;
+			}
+	  
+			// Reply to a whisper or info is meaningless
+			if ( args.type == 'whisper' || args.nick == '*' || args.nick == '!' ) {
+			  insertAtCursor( args.text );
+			  $('#chat-input').focus();
+			  return;
+			}
+	  
+			let replyText = '';
+			let originalText = args.text;
+			let overlongText = false;
+			
+			// Cut overlong text
+			if ( originalText.length > 350 ) {
+			  replyText = originalText.slice(0, 350);
+			  overlongText = true;
+			}
+	  
+			// Add nickname
+			if ( args.trip ) {
+			  replyText = '>' + args.trip + ' ' + args.nick + '：\n';
+			} else {
+			  replyText = '>' + args.nick + '：\n';
+			}
+	  
+			// Split text by line
+			originalText = originalText.split('\n');
+	  
+			// Cut overlong lines
+			if ( originalText.length >= 8 ) {
+			  originalText = originalText.slice(0, 8);
+			  overlongText = true;
+			}
+	  
+			for ( let replyLine of originalText ) {
+			  // Cut third replied text
+			  if ( !replyLine.startsWith('>>')) {
+				replyText += '>' + replyLine + '\n';
+			  }
+			}
+	  
+			// Add elipsis if text is cutted
+			if ( overlongText ) {
+			  replyText += '>……\n';
+			}
+			replyText += '\n';
+	  
+			// Add mention when reply to others
+			if ( args.nick != myNick ) {
+			  replyText += '@' + args.nick + ' ';
+			}
+	  
+			// Insert reply text
+			replyText += $('#chatinput').value;
+	  
+			$('#chatinput').value = '';
+			insertAtCursor( replyText );
+			$('#chatinput').focus();
+		  }
 
 		var date = new Date(args.time || Date.now());
 		nickLinkEl.title = date.toLocaleString();
