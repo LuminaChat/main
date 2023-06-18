@@ -12,3 +12,5 @@ Lumina为拉丁语中“光”的意思。
 本项目修改自Hack.Chat.
 
 永远感谢Hack.Chat的开发者。
+
+还要特别呜谢Lumina.Chat的开发人员。
