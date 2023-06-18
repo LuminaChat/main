@@ -268,7 +268,7 @@ class CommandManager {
         this.handleCommand(server, socket, {
           cmd: 'socketreply',
           cmdKey: server.cmdKey,
-          text: `执行 \`${command.info.name}\` 失败：缺少必要参数：\`${missing.join('\`, \`')}\`\n`,s
+          text: `执行 \`${command.info.name}\` 失败：缺少必要参数：\`${missing.join('\`, \`')}\`\n`,
         });
 
         return null;
