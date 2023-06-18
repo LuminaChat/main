@@ -589,6 +589,7 @@ function pushMessage(args) {
 		nickLinkEl.oncontextmenu = function (e) {
 			e.preventDefault()
 			// Temporary quick banning
+			/*
 			if ($('#chatinput').value.trim() == '#ban') {
 				// Ban a user though a message
 				if (args.type == 'chat') {
@@ -617,13 +618,14 @@ function pushMessage(args) {
 				return;
 			}
 
+
 			// Reply to a whisper or info is meaningless
 			if (args.type == 'whisper' || args.nick == '*' || args.nick == '!') {
 				insertAtCursor(args.text);
 				$('#chat-input').focus();
 				return;
 			}
-
+			*/
 			let replyText = '';
 			let originalText = args.text;
 			let overlongText = false;
