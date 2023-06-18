@@ -157,8 +157,8 @@ class MainServer extends WsServer {
       this.core.commands.handleCommand(this, socket, {
         cmd: 'socketreply',
         cmdKey: this.cmdKey,
-        text: 'You are being rate-limited or blocked.',
-      });
+        text: '# Lumina吉mag1152 gww防火墙™ \n ### 已拒绝处理你的操作\n请反思你的所作所为！！！', //cmd：整个活
+      }); 
 
       return;
     }
