@@ -42,7 +42,7 @@ export async function run({
   if (server.police.frisk(socket.address, 3)) {
     return server.reply({
       cmd: 'warn',
-      text: 'You are joining channels too fast. Wait a moment and try again.',
+      text: '太快了！',
       id: Errors.Join.RATELIMIT,
       channel: false, // @todo Multichannel, false for global event
     }, socket);
@@ -61,7 +61,7 @@ export async function run({
   if (mayJoin !== true) {
     return server.reply({
       cmd: 'warn',
-      text: 'You may not join that channel.',
+      text: '你不能加入这个频道。',
       id: mayJoin,
       channel: false, // @todo Multichannel, false for global event
     }, socket);
@@ -72,7 +72,7 @@ export async function run({
   if (typeof socket.channel !== 'undefined') {
     return server.reply({
       cmd: 'warn', // @todo Remove this
-      text: 'Joining more than one channel is not currently supported',
+      text: '不支持加入多个频道（你是不是开挂了）',
       id: Errors.Join.ALREADY_JOINED,
       channel: false, // @todo Multichannel, false for global event
     }, socket);
@@ -83,7 +83,7 @@ export async function run({
   if (verifyNickname(nick, socket) !== true) {
     return server.reply({
       cmd: 'warn',
-      text: 'Nickname must consist of up to 24 letters, numbers, and underscores',
+      text: '昵称至多由24个字母、数字、下划线组成',
       id: Errors.Join.INVALID_NICK,
       channel: false, // @todo Multichannel, false for global event
     }, socket);
@@ -115,7 +115,7 @@ export async function run({
     // that nickname is already in that channel
     return server.reply({
       cmd: 'warn',
-      text: 'Nickname taken',
+      text: '昵称重复',
       id: Errors.Join.NAME_TAKEN,
       channel: false, // @todo Multichannel, false for global event
     }, socket);
@@ -184,7 +184,7 @@ export function restoreJoin({
   if (mayJoin !== true) {
     return server.reply({
       cmd: 'warn',
-      text: 'You may not join that channel.',
+      text: '你不能加入这个频道。',
       id: mayJoin,
       channel: false, // @todo Multichannel, false for global event
     }, socket);

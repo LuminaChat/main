@@ -67,7 +67,7 @@ export async function run({ server, socket, payload }) {
   if (server.police.frisk(socket.address, score)) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '太快了！',
       channel: socket.channel, // @todo Multichannel
     }, socket);
   }
@@ -76,7 +76,7 @@ export async function run({ server, socket, payload }) {
   if (!targetUser) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user in that channel',
+      text: '找不到用户',
       id: Errors.Global.UNKNOWN_USER,
       channel: socket.channel, // @todo Multichannel
     }, socket);
@@ -142,7 +142,7 @@ export function whisperCheck({
     if (!input[1]) {
       server.reply({
         cmd: 'warn', // @todo Add numeric error code as `id`
-        text: 'Refer to `/help whisper` for instructions on how to use this command.',
+        text: '使用`/help whisper`查看帮助',
         channel: socket.channel, // @todo Multichannel
       }, socket);
 

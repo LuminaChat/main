@@ -67,7 +67,7 @@ export async function run({
   if (!targetUser) {
     return server.reply({
       cmd: 'warn',
-      text: 'Could not find user in that channel',
+      text: '找不到用户。',
       id: Errors.Global.UNKNOWN_USER,
       channel: socket.channel, // @todo Multichannel
     }, socket);

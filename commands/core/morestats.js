@@ -85,15 +85,15 @@ export async function run({ core, server, socket }) {
     stats,
     uptime,
     public: publicChanCounts,
-    text: `current-connections: ${uniqueClientCount}
-current-channels: ${uniqueChannels}
-users-joined: ${joins}
-invites-sent: ${invites}
-messages-sent: ${messages}
-users-banned: ${banned}
-users-kicked: ${kicked}
-stats-requested: ${stats}
-server-uptime: ${uptime}`,
+    text: `连接数: ${uniqueClientCount}
+频道数: ${uniqueChannels}
+用户数: ${joins}
+邀请数: ${invites}
+消息数: ${messages}
+封禁用户数: ${banned}
+被踢用户数: ${kicked}
+状态申请数: ${stats}
+服务器启动时间: ${uptime}`,
     channel: socket.channel, // @todo Multichannel
   }, socket);
 
