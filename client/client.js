@@ -1046,7 +1046,8 @@ function userIgnore(nick) {
 /* color scheme switcher */
 
 var schemes = [
-	"default"
+	"default",
+	"lax"
 ];
 
 var highlights = [

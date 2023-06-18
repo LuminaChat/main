@@ -118,6 +118,14 @@ ul li {
 .text p {
   margin: 0;
 }
+.text p code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #FFFFFF;
+  background-color: #232222;
+  border-radius: 4px;
+  border:1px solid #424242;
+}
 #footer {
   position: fixed;
   bottom: 0;
@@ -151,15 +159,16 @@ h1,h2,h3,h4,h5,h6 {
 blockquote {
   padding: 3px 10px;
   margin: 3px;
-  border-left: 5px solid #4e4e4e;
+  border-left: 5px solid #455A65;
 }
 code {
   padding: 2px 4px;
   font-size: 90%;
-  color: #000000;
-  background-color: #4e4e4e;
+  color: #FFFFFF;
+  background-color: #232222;
   border-radius: 4px;
 }
+
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -169,16 +178,25 @@ hr {
 
 pre {
   display: block;
-  padding: 9.5px;
+  padding: 10px;
   margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.42857143;
-  color: #797979;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b3b3b3;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: #4e4e4e;
-  border: 1px solid #000;
+  background-color: #232222;
+  border: 1px solid #424242;
   border-radius: 4px;
+}
+pre code{
+ 
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #FFFFFF;
+    background-color: #232222;
+    border-radius: 4px;
+  
 }
 table {
   background-color: transparent;
@@ -235,9 +253,6 @@ ul ul, ol ol {
 @media only screen and (max-width: 600px) {
   .messages {
     border: none;
-  }
-  #messages {
-    padding: 0.5em;
   }
   .message {
     padding-bottom: 0.5em;
