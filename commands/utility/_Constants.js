@@ -35,6 +35,7 @@ export const Errors = {
     INVALID_NAME: ChannelErrors + 1,
     INVALID_LENGTH: ChannelErrors + 2,
     DEY_BANNED: ChannelErrors + 3,
+    LOCK_ROOM: ChannelErrors + 4,
   },
 
   Invite: {
