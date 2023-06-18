@@ -6,7 +6,7 @@
  * and will not actively be updated.
  *
 */
-const clientversion='lmc-1.0-dev';
+const clientversion = 'lmc-1.0-dev';
 //select "chatinput" on "/"
 document.addEventListener("keydown", e => {
 	if (e.key === '/' && document.getElementById("chatinput") != document.activeElement) {
@@ -58,13 +58,12 @@ var imgHostWhitelist = [
 	's1.ax1x.com', 's2.ax1x.com', 'z3.ax1x.com', 's4.ax1x.com', // 路过图床
 	'i.postimg.cc', 'gimg2.baidu.com', // Postimages图床 百度
 	'files.catbox.moe', 'img.thz.cool', 'img.liyuv.top', 'share.lyka.pro', // 这些是ee加的（被打
-	document.domain,    // 允许我自己
+	document.location.domain,    // 允许我自己
 	'img.zhangsoft.cf',    // 小张图床
 	'bed.paperee.repl.co',    // 纸片君ee的纸床
-	'imagebed.s1.bitiful.net','imagebed.s2.bitiful.net','imagebed.s3.bitiful.net','imagebed.s4.bitiful.net',    //Dr0让加的()
-	'captcha.dr0.lol',        // Dr0's Captcha
+	'imagebed.s3.bitiful.net',    //Dr0让加的()
 	//cmd：下面是OsMe 加的
-	'cdn.luogu.com',//洛谷图床()
+	'cdn.luogu.com.cn',//洛谷图床()
 ];
 
 function getDomain(link) {
@@ -199,7 +198,7 @@ var faqs = `
 
 ### Q7: 这里的规则很严格吗？
 ~~这里是无政府的2b2t~~
-这里并不严格，但不代表你可以肆意妄为
+这里并不严格，但不代表你可以肆意妄为。
 
 **********
 
@@ -473,15 +472,59 @@ var COMMANDS = {
 		}
 	}
 }
-var handleCmds={
-	dumb:{
-		
+var localCommands = {
+	dumb: function (text) {
+		let args = text.split(' ');
+		ws.send(JSON.stringify({cmd:'dumb',nick:args[0]}));
+		/*ws.send(JSON.stringify(args.length > 1 ?
+			{ cmd: "dumb",  nick: args[0] } : { cmd: 'dumb', nick: args[0], time: args[1] }));*/
+			 
+	},
+	kick: function (text) {
+		let args = text.split(" ");
+		send(args.length >= 2 ? { cmd: 'kick', nick: args[1] } : { cmd: 'kick', nick: args[1], to: args[2] })
+	},
+	ban: function (text) {
+		let nick = text.split(" ")[1];
+		ws.send(JSON.stringify({
+			cmd: 'ban',
+			nick: nick
+		}))
+	},
+	moveuser: function (text) {
+		let args = text.split(' ');
+		ws.send(JSON.stringify({
+			cmd: 'moveuser',
+			nick: args[1],
+			channel: args[2]
+		}))
+	},
+	speak: function (text) {
+		let args = text.split(' ');
+		if (args[1].indexOf(".") == -1) {
+			ws.send(JSON.stringify({
+				cmd: 'speak',
+				hash: args[1]
+			}))
+		} else {
+			ws.send(JSON.stringify({
+				cmd: 'speak',
+				ip: args[1]
+			}))
+		}
 	}
-	
+
 };
-function handleCommand(data){
- let res=handleCmds[data];
- 
+function commandHook(text) {
+	if (!isCommand(text)) {
+		return
+	}
+	let cmdname = text.split(" ")[0].split("/")[1];
+	localCommands[cmdname](text);
+}
+
+function isCommand(text) {
+	return text.startsWith("/") && (typeof localCommands[text.split(" ")[0].split("/")[1]] != "undefined")
 }
 function pushMessage(args) {
 	// Message container
@@ -533,92 +576,92 @@ function pushMessage(args) {
 		// Thanks to crosst.chat for this part of code!(reply)
 		nickLinkEl.oncontextmenu = function () {
 			// Temporary quick banning
-			if ( $('#chatinput').value.trim() == '#ban') {
-			  // Ban a user though a message
-			  if( args.type == 'chat') {
-				send({ cmd: 'ban', nick: args.nick });
+			if ($('#chatinput').value.trim() == '#ban') {
+				// Ban a user though a message
+				if (args.type == 'chat') {
+					send({ cmd: 'ban', nick: args.nick });
+					return;
+				}
+
+				// Ban a user though a whisper
+				if (args.type == 'whisper' && args.from) {
+					send({ cmd: 'ban', nick: args.from });
+					return;
+				}
+
+				// Ban a user though an invite
+				if (args.type == 'invite') {
+					send({ cmd: 'ban', nick: args.from });
+					return;
+				}
+
+				// Ban a user though a online notice
+				if (args.type == 'join') {
+					send({ cmd: 'ban', nick: args.text.split(' ')[0] });
+					return;
+				}
+
 				return;
-			  }
-	  
-			  // Ban a user though a whisper
-			  if( args.type == 'whisper' && args.from) {
-				send({ cmd: 'ban', nick: args.from });
-				return;
-			  }
-	  
-			  // Ban a user though an invite
-			  if( args.type == 'invite') {
-				send({ cmd: 'ban', nick: args.from });
-				return;
-			  }
-	  
-			  // Ban a user though a online notice
-			  if( args.type == 'join') {
-				send({ cmd: 'ban', nick: args.text.split(' ')[0] });
-				return;
-			  }
-	  
-			  return;
 			}
-	  
+
 			// Reply to a whisper or info is meaningless
-			if ( args.type == 'whisper' || args.nick == '*' || args.nick == '!' ) {
-			  insertAtCursor( args.text );
-			  $('#chat-input').focus();
-			  return;
+			if (args.type == 'whisper' || args.nick == '*' || args.nick == '!') {
+				insertAtCursor(args.text);
+				$('#chat-input').focus();
+				return;
 			}
-	  
+
 			let replyText = '';
 			let originalText = args.text;
 			let overlongText = false;
-			
+
 			// Cut overlong text
-			if ( originalText.length > 350 ) {
-			  replyText = originalText.slice(0, 350);
-			  overlongText = true;
+			if (originalText.length > 350) {
+				replyText = originalText.slice(0, 350);
+				overlongText = true;
 			}
-	  
+
 			// Add nickname
-			if ( args.trip ) {
-			  replyText = '>' + args.trip + ' ' + args.nick + '：\n';
+			if (args.trip) {
+				replyText = '>' + args.trip + ' ' + args.nick + '：\n';
 			} else {
-			  replyText = '>' + args.nick + '：\n';
+				replyText = '>' + args.nick + '：\n';
 			}
-	  
+
 			// Split text by line
 			originalText = originalText.split('\n');
-	  
+
 			// Cut overlong lines
-			if ( originalText.length >= 8 ) {
-			  originalText = originalText.slice(0, 8);
-			  overlongText = true;
+			if (originalText.length >= 8) {
+				originalText = originalText.slice(0, 8);
+				overlongText = true;
 			}
-	  
-			for ( let replyLine of originalText ) {
-			  // Cut third replied text
-			  if ( !replyLine.startsWith('>>')) {
-				replyText += '>' + replyLine + '\n';
-			  }
+
+			for (let replyLine of originalText) {
+				// Cut third replied text
+				if (!replyLine.startsWith('>>')) {
+					replyText += '>' + replyLine + '\n';
+				}
 			}
-	  
+
 			// Add elipsis if text is cutted
-			if ( overlongText ) {
-			  replyText += '>……\n';
+			if (overlongText) {
+				replyText += '>……\n';
 			}
 			replyText += '\n';
-	  
+
 			// Add mention when reply to others
-			if ( args.nick != myNick ) {
-			  replyText += '@' + args.nick + ' ';
+			if (args.nick != myNick) {
+				replyText += '@' + args.nick + ' ';
 			}
-	  
+
 			// Insert reply text
 			replyText += $('#chatinput').value;
-	  
+
 			$('#chatinput').value = '';
-			insertAtCursor( replyText );
+			insertAtCursor(replyText);
 			$('#chatinput').focus();
-		  }
+		}
 
 		var date = new Date(args.time || Date.now());
 		nickLinkEl.title = date.toLocaleString();
@@ -716,8 +759,11 @@ $('#chatinput').onkeydown = function (e) {
 		if (e.target.value != '') {
 			var text = e.target.value;
 			e.target.value = '';
-
-			send({ cmd: 'chat', text: text });
+			if (isCommand(text)) {
+				commandHook(text)
+			} else {
+				send({ cmd: 'chat', text: text });
+			}
 
 			lastSent[0] = text;
 			lastSent.unshift("");
@@ -1028,10 +1074,10 @@ $('#highlight-selector').value = currentHighlight;
 /* main */
 
 if (myChannel == '') {
-	if (document.location.pathname == "/"){
+	if (document.location.pathname == "/") {
 		pushMessage({ text: frontpage });
 	}
-	if(document.location.pathname == "/faqs.html"){
+	if (document.location.pathname == "/faqs.html") {
 		pushMessage({ text: faqs })
 	}
 	$('#footer').classList.add('hidden');
