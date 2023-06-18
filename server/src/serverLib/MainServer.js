@@ -157,7 +157,7 @@ class MainServer extends WsServer {
       this.core.commands.handleCommand(this, socket, {
         cmd: 'socketreply',
         cmdKey: this.cmdKey,
-        text: 'You are being rate-limited or blocked.',
+        text: '你可能操作太快了，或是被封禁了.',
       });
 
       return;
