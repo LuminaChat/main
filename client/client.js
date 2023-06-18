@@ -520,6 +520,11 @@ var localCommands = {
 	story() {
 		send({ cmd: 'chat', text: '我们不该是书写自己的故事\n\n而这不过是其中的一章\n在你书写我们的故事前\n请确定双手的干净' })
 	},
+	roll(e){
+		pushMessage({ nick: "*", text: 'Rick_Astley 加入了聊天室'})
+		pushMessage({nick:"Rick_Astley",text:"Never gonna give you up"})
+		pushMessage({ nick: "*", text: 'Rick_Astley 离开了聊天室'})
+	},
 	addmod(e) {
 		send({ cmd: 'addmod', trip: e.args[0] })
 	},
@@ -1053,8 +1058,8 @@ var schemes = [
 	"winaero-dark",
 	"winaero-light",
 	"banana",
-	"hacker",
-	"rainbow"
+	"rainbow",
+	"tomorrow"
 ];
 
 var highlights = [
