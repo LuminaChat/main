@@ -44,7 +44,7 @@ export async function run({
   if (!verifyNickname(newNick)) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'Nickname must consist of up to 24 letters, numbers, and underscores',
+      text: '昵称至多由24个字母、数字、下划线组成',
       channel, // @todo Multichannel
     }, socket);
   }
@@ -52,7 +52,7 @@ export async function run({
   if (newNick == previousNick) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'You already have that name',
+      text: '你已经是这个昵称啦',
       channel, // @todo Multichannel
     }, socket);
   }
@@ -70,7 +70,7 @@ export async function run({
     // That nickname is already in that channel
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'Nickname taken',
+      text: '昵称被占用',
       channel, // @todo Multichannel
     }, socket);
   }
@@ -119,7 +119,7 @@ export async function run({
   // notify channel that the user has changed their name
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick} is now ${newNick}`,
+    text: `${socket.nick} 现在叫 ${newNick}`,
     channel, // @todo Multichannel
   }, { channel });
 
@@ -161,7 +161,7 @@ export function nickCheck({
     if (!input[1]) {
       server.reply({
         cmd: 'warn', // @todo Add numeric error code as `id`
-        text: 'Refer to `/help nick` for instructions on how to use this command.',
+        text: '使用`/help nick`来查看这个命令的帮助',
         channel: socket.channel, // @todo Multichannel
       }, socket);
 
