@@ -94,6 +94,7 @@ ul li {
 }
 #messages {
   padding-top: 2em;
+  word-break: break-all;
 }
 .message, .refmessage {
   padding-bottom: 1em;
