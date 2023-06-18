@@ -1,4 +1,4 @@
-# lumina.chat
+# lumina.chat(第二版，开发中)
 <center>简体中文</center>
 
 ## 简述
