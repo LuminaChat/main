@@ -261,9 +261,9 @@ class CommandManager {
       }
 
       if (missing.length > 0) {
-        console.log(`Failed to execute '${
+        console.log(`无法执行 '${
           command.info.name
-        }': missing required ${missing.join(', ')}\n\n`);
+        }': 缺少参数 ${missing.join(', ')}\n\n`);
 
         this.handleCommand(server, socket, {
           cmd: 'socketreply',
