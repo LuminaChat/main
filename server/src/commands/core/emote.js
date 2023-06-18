@@ -3,34 +3,34 @@
   已汉化
 */
 
-// module support functions
+// 模块开始函数
 const parseText = (text) => {
-  // verifies user input is text
+  // 检查输入类型为string，如果不是string，返回false强制拒绝
   if (typeof text !== 'string') {
     return false;
   }
 
   let sanitizedText = text;
 
-  // strip newlines from beginning and end
+  // 删除文本开头和结尾的换行
   sanitizedText = sanitizedText.replace(/^\s*\n|^\s+$|\n\s*$/g, '');
-  // replace 3+ newlines with just 2 newlines
+  // 把3个换行（或3个以上的换行）替换为2个换行
   sanitizedText = sanitizedText.replace(/\n{3,}/g, '\n\n');
 
   return sanitizedText;
 };
 
-// module main
+// 模块核心 
 export async function run(core, server, socket, payload) {
-  // check user input
+  // 检查用户文本
   let text = parseText(payload.text);
 
   if (!text) {
-    // lets not send objects or empty text, yea?
-    return server.police.frisk(socket.address, 8);
+    // 禁止发送空文本或对象，要造反了食不食？
+    return server.police.frisk(socket.address, 8); 
   }
 
-  // check for spam
+  // 检查输入，频率限制
   const score = text.length / 83 / 4;
   if (server.police.frisk(socket.address, score)) {
     return server.reply({
@@ -53,18 +53,18 @@ export async function run(core, server, socket, payload) {
     newPayload.trip = socket.trip;
   }
 
-  // broadcast to channel peers
+  // 向指定频道广播消息
   server.broadcast(newPayload, { channel: socket.channel });
 
   return true;
 }
 
-// module hook functions
+// 模块hook函数
 export function initHooks(server) {
   server.registerHook('in', 'chat', this.emoteCheck.bind(this), 30);
 }
 
-// hooks chat commands checking for /me
+// hook聊天发送emote命令
 export function emoteCheck(core, server, socket, payload) {
   if (typeof payload.text !== 'string') {
     return false;
@@ -73,14 +73,14 @@ export function emoteCheck(core, server, socket, payload) {
   if (payload.text.startsWith('/me ')) {
     const input = payload.text.split(' ');
 
-    // If there is no emote target parameter
+    // 如果他不是一个合法的参数……
     if (input[1] === undefined) {
       server.reply({
         cmd: 'warn',
         text: '使用`/help emote`查看这个命令的帮助',
       }, socket);
 
-      return false;
+      return false; //返回false，让后面的失效
     }
 
     input.splice(0, 1);
@@ -91,7 +91,7 @@ export function emoteCheck(core, server, socket, payload) {
       text: actionText,
     });
 
-    return false;
+    return false; //end
   }
 
   return payload;
@@ -100,8 +100,8 @@ export function emoteCheck(core, server, socket, payload) {
 export const requiredData = ['text'];
 export const info = {
   name: 'emote',
-  description: '情绪/动作文本',
+  description: '状态/情绪/动作文本',
   usage: `
-  API: { cmd: 'emote', text: '<情绪/动作文本>' }
-  文本: /me <情绪/动作文本>`,
+  API: { cmd: 'emote', text: '<状态/情绪/动作文本>' }
+  文本: /me <状态/情绪/动作文本>`,
 };
