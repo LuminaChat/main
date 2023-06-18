@@ -94,7 +94,7 @@ class SetupWizard {
       this.serverConfig.config = result;
       await this.serverConfig.save();
     } catch (e) {
-      console.error(`Couldn't write config to ${this.serverConfig.configPath}
+      console.error(`无法写入配置文件到 ${this.serverConfig.configPath}
         ${e.stack}`);
     }
 

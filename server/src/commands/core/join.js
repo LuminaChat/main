@@ -46,7 +46,7 @@ export function parseNickname(core, data) {
     userInfo.level = UAC.levels.admin;
   } else if (userInfo.nick.toLowerCase() === core.config.adminName.toLowerCase()) {
     // they've got the main-admin name while not being an admin
-    return '你不是站长，滚开';
+    return '站长的鸡笼不给你用！（'; //cmd：仿xc  dqjl：鱼缸应该改成鸡笼
   } else if (password) {
     userInfo.trip = hash(password + core.config.tripSalt);
   }
@@ -69,7 +69,7 @@ export async function run(core, server, socket, data) {
   if (server.police.frisk(socket.address, 3)) {
     return server.reply({
       cmd: 'warn',
-      text: '你加入的速度太快了。',
+      text: '抱歉，你可能正在进行刷屏操作，已被服务器保护装置拦截，请稍后再试！',
     }, socket);
   }
 

@@ -319,14 +319,14 @@ function notify(args) {
 function join(channel) {
 	if (document.location.hostname == 'lumina.chat') {
 		// For https://lumina.chat/
-		ws = new WebSocket('wss://websocket.lumina.chat:11451/'); //homo port
+		ws = new WebSocket('wss://websocket.lumina.chat:11451/'); //homo port（喜
 	} else {
 		// for local installs
 		var protocol = location.protocol === 'https:' ? 'wss:' : 'ws:'
-		// if you changed the port during the server config, change 'wsPath'
-		// to the new port (example: ':8080')
-		// if you are reverse proxying, change 'wsPath' to the new location
-		// (example: '/chat-ws')
+		// 如果你修改了端口号，
+		// 那么就需要在这里修改（如:8080）
+		// 如果你修改了ws的路径，
+		// 也要在这里修改（如：/dqj_ws）
 		var wsPath = ':6060';
 		ws = new WebSocket(protocol + '//' + document.location.hostname + wsPath);
 	}
@@ -339,7 +339,7 @@ function join(channel) {
 			if (location.hash) {
 				myNick = location.hash.substr(1);
 			} else {
-				var newNick = prompt('输入你的名称', myNick);
+				var newNick = prompt('输入您的用户名', myNick);
 				if (newNick !== null) {
 					myNick = newNick;
 				} else {
@@ -359,7 +359,7 @@ function join(channel) {
 
 	ws.onclose = function () {
 		if (wasConnected) {
-			pushMessage({ nick: '!', text: "连接断开，正在尝试重连..." });
+			pushMessage({ nick: '!', text: "掉线了！正在尝试重连..." });
 		}
 
 		window.setTimeout(function () {
