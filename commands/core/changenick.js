@@ -27,7 +27,7 @@ export async function run({
   if (server.police.frisk(socket.address, 6)) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'You are changing nicknames too fast. Wait a moment before trying again.',
+      text: '太快了！',
       channel, // @todo Multichannel
     }, socket);
   }

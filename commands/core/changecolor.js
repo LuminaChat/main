@@ -33,7 +33,7 @@ export async function run({
   if (server.police.frisk(socket.address, 1)) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'You are changing colors too fast. Wait a moment before trying again.',
+      text: '太快了！',
       channel, // @todo Multichannel
     }, socket);
   }
@@ -48,7 +48,7 @@ export async function run({
   if (newColor !== 'RESET' && !verifyColor(newColor)) {
     return server.reply({
       cmd: 'warn',
-      text: 'Invalid color! Color must be in hex value',
+      text: '无效颜色！',
       channel, // @todo Multichannel
     }, socket);
   }
@@ -107,7 +107,7 @@ export function colorCheck({
     if (input[1] === undefined) {
       server.reply({
         cmd: 'warn',
-        text: 'Refer to `/help changecolor` for instructions on how to use this command.',
+        text: '输入`/help changecolor`查看命令帮助。',
         channel: socket.channel, // @todo Multichannel
       }, socket);
 
