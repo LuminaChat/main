@@ -586,7 +586,8 @@ function pushMessage(args) {
 			$('#chatinput').focus();
 		}
 		// Thanks to crosst.chat for this part of code!(reply)
-		nickLinkEl.oncontextmenu = function () {
+		nickLinkEl.oncontextmenu = function (e) {
+			e.preventDefault()
 			// Temporary quick banning
 			if ($('#chatinput').value.trim() == '#ban') {
 				// Ban a user though a message
