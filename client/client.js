@@ -7,6 +7,10 @@
  *
 */
 const clientversion = 'lmc-1.0-release';
+//scroll to top
+window.onload = (e) => {
+    window.scrollTo(0,0);
+}
 //select "chatinput" on "/"
 document.addEventListener("keydown", e => {
 	if (e.key === '/' && document.getElementById("chatinput") != document.activeElement) {
