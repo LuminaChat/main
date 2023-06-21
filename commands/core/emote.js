@@ -155,8 +155,8 @@ export const requiredData = ['text'];
 export const info = {
   name: 'emote',
   category: 'core',
-  description: 'Broadcasts an emote to the current channel',
+  description: '发表自己情绪',
   usage: `
     API: { cmd: 'emote', text: '<emote/action text>' }
-    Text: /me <emote/action text>`,
+    文本: /me <情绪、动作>`,
 };

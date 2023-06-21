@@ -157,8 +157,8 @@ export function statsCheck({
 export const info = {
   name: 'morestats',
   category: 'core',
-  description: 'Sends back current server stats to the calling client',
+  description: '返回服务器状态',
   usage: `
     API: { cmd: 'morestats' }
-    Text: /stats`,
+    文本: /stats`,
 };

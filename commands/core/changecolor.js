@@ -150,9 +150,9 @@ export const requiredData = ['color'];
 export const info = {
   name: 'changecolor',
   category: 'core',
-  description: 'Allows calling client to change their nickname color',
+  description: '更改颜色',
   usage: `
     API: { cmd: 'changecolor', color: '<new color as hex>' }
-    Text: /color <new color as hex>
-    Removal: /color reset`,
+    文本: /color <新颜色>
+    恢复默认: /color reset`,
 };

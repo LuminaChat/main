@@ -19,7 +19,7 @@ export async function run({
   if (server.police.frisk(socket.address, 2)) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
-      text: 'You are sending too much text. Wait a moment and try again.\nPress the up arrow key to restore your last message.',
+      text: '太快了！',
       channel: socket.channel, // @todo Multichannel
     }, socket);
   }

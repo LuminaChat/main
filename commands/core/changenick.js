@@ -206,8 +206,8 @@ export const requiredData = ['nick'];
 export const info = {
   name: 'changenick',
   category: 'core',
-  description: 'Allows calling client to change their current nickname',
+  description: '更改昵称',
   usage: `
     API: { cmd: 'changenick', nick: '<new nickname>' }
-    Text: /nick <new nickname>`,
+    文本: /nick <新昵称>`,
 };

@@ -266,7 +266,7 @@ export function restoreJoin({
 export const info = {
   name: 'join',
   category: 'core',
-  description: 'Join the target channel using the supplied nick and password',
+  description: '使用指定的用户名和密码加入目标频道',
   usage: `
     API: { cmd: 'join', nick: '<your nickname>', pass: '<optional password>', channel: '<target channel>' }`,
 };

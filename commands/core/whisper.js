@@ -221,11 +221,11 @@ export const requiredData = ['nick', 'text'];
 export const info = {
   name: 'whisper',
   category: 'core',
-  description: 'Display text on target users screen that only they can see',
+  description: '私聊某位用户',
   usage: `
     API: { cmd: 'whisper', nick: '<target name>', text: '<text to whisper>' }
-    Text: /whisper <target name> <text to whisper>
-    Text: /w <target name> <text to whisper>
-    Alt Text: /reply <text to whisper, this will auto reply to the last person who whispered to you>
-    Alt Text: /r <text to whisper, this will auto reply to the last person who whispered to you>`,
+    文本: /whisper <目标用户> <私信内容>
+    文本: /w <目标用户> <私信内容>
+    回复: /reply <私信内容，这会自动回复给刚刚给你发私信的人>
+    回复: /r <私信内容，这会自动回复给刚刚给你发私信的人>`,
 };
