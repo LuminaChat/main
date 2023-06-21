@@ -119,7 +119,7 @@ export function whisperCheck(core, server, socket, payload) {
     if (typeof socket.whisperReply === 'undefined') {
       server.reply({
         cmd: 'warn',
-        text: '你还尚未收到过私聊，快去发起私聊吧',
+        text: '你还尚未收到过私聊',
       }, socket);
 
       return false;
