@@ -31,7 +31,7 @@ export async function run({
 
   let reply = '';
   if (typeof payload.command === 'undefined') {
-    reply += '# All commands:\n|Category:|Name:|\n|---:|---|\n';
+    reply += '# 所有命令:\n|分类:|名称:|\n|---:|---|\n';
 
     const categories = core.commands.categoriesList.sort();
     for (let i = 0, j = categories.length; i < j; i += 1) {
@@ -42,21 +42,21 @@ export async function run({
       reply += `${catCommands.map((c) => `${c.info.name}`).join(', ')}|\n`;
     }
 
-    reply += '---\nFor specific help on certain commands, use either:\nText: `/help <command name>`\nAPI: `{cmd: \'help\', command: \'<command name>\'}`';
+    reply += '---\n要看命令具体帮助，使用:\nText: `/help <命令名>`\nAPI: `{cmd: \'help\', command: \'<command name>\'}`';
   } else {
     const command = core.commands.get(payload.command);
 
     if (typeof command === 'undefined') {
-      reply += 'Unknown command';
+      reply += '未知命令';
     } else {
       reply += `# ${command.info.name} command:\n| | |\n|---:|---|\n`;
-      reply += `|**Name:**|${command.info.name}|\n`;
-      reply += `|**Aliases:**|${typeof command.info.aliases !== 'undefined' ? command.info.aliases.join(', ') : 'None'}|\n`;
-      reply += `|**Category:**|${command.info.category.replace('../src/commands/', '').replace(/^\w/, (c) => c.toUpperCase())}|\n`;
-      reply += `|**Required Parameters:**|${command.requiredData || 'None'}|\n`;
+      reply += `|**名字:**|${command.info.name}|\n`;
+      reply += `|**别名:**|${typeof command.info.aliases !== 'undefined' ? command.info.aliases.join(', ') : 'None'}|\n`;
+      reply += `|**分类:**|${command.info.category.replace('../src/commands/', '').replace(/^\w/, (c) => c.toUpperCase())}|\n`;
+      reply += `|**参数:**|${command.requiredData || 'None'}|\n`;
       // eslint-disable-next-line no-useless-escape
-      reply += `|**Description:**|${command.info.description || '¯\_(ツ)_/¯'}|\n\n`;
-      reply += `**Usage:** ${command.info.usage || command.info.name}`;
+      reply += `|**描述:**|${command.info.description || '¯\_(ツ)_/¯'}|\n\n`;
+      reply += `**用法:** ${command.info.usage || command.info.name}`;
     }
   }
 
@@ -127,8 +127,8 @@ export function helpCheck({
 export const info = {
   name: 'help',
   category: 'core',
-  description: 'Outputs information about the servers current protocol',
+  description: '查看命令帮助',
   usage: `
     API: { cmd: 'help', command: '<optional command name>' }
-    Text: /help <optional command name>`,
+    Text: /help <命令名（可选）>`,
 };
