@@ -17,7 +17,7 @@ const formatTime = (time) => {
   const days = Math.floor(hours / 24);
   hours %= 24;
 
-  return `${days.toFixed(0)}d ${hours.toFixed(0)}h ${minutes.toFixed(0)}m ${seconds.toFixed(0)}s`;
+  return `${days.toFixed(0)}天 ${hours.toFixed(0)}小时 ${minutes.toFixed(0)}分钟 ${seconds.toFixed(0)}秒`;
 };
 
 // module main

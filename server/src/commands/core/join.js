@@ -29,7 +29,7 @@ export function parseNickname(core, data) {
 
   if (!UAC.verifyNickname(userInfo.nick)) {
     // return error as string
-    return '昵称只能由数字、字母、下划线组成，且最多24位。';
+    return '昵称只能由数字、字母、中文、下划线组成，且最多24位。';
   }
 
   let password = undefined;
@@ -88,6 +88,7 @@ export async function run(core, server, socket, data) {
     // must join a non-blank channel
 
     //这是锁房用的吗
+    // MrZhang365回答：这不是锁房用的，这个用来检查用户提供的channel是否有效的
     return true;
   }
 

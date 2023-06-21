@@ -61,6 +61,13 @@ export async function run(core, server, socket, data) {
   // force connection closed
   badClient.terminate();
 
+  // MrZhang365：还需要强制断开同IP下的所有用户的连接，以免窥屏
+  server.findSockets({
+    address: badClient.address,
+  }).forEach((theFuckingUser) => {
+    theFuckingUser.terminate()
+  })
+
   // stats are fun
   core.stats.increment('users-banned');
 

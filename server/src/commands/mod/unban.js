@@ -37,18 +37,20 @@ export async function run(core, server, socket, data) {
   if (mode === 'ip') {
     target = server.getSocketHash(target);
   }
-  console.log(`${socket.nick} [${socket.trip}] unbanned ${target} in ${socket.channel}`);
+  console.log(`${socket.nick} [${socket.trip}] 在 ${socket.channel} 解封了 ${target}`);
 
   // reply with success
+  /*
   server.reply({
     cmd: 'info',
-    text: `解除了对此hash或ip的封禁： ${target}`,
+    text: `解除了对此hash的封禁： ${target}`,
   }, socket);
+  */    // MrZhang365：同一种信息，发一次就好，不必先告诉操作员，再广播所有管理员
 
   // notify mods
   server.broadcast({
     cmd: 'info',
-    text: `${socket.nick}#${socket.trip} 解除了对此hash或ip的封禁: ${target}`,
+    text: `${socket.nick}#${socket.trip} 解除了对此hash的封禁: ${target}`,    // MrZhang365：即使是IP，也会被上面的代码转换为hash
   }, { level: UAC.isModerator });
 
   // stats are fun

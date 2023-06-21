@@ -25,18 +25,18 @@ export async function run(core, server, socket, data) {
   if (!UAC.verifyNickname(newNick)) {
     return server.reply({
       cmd: 'warn',
-      text: '名称长度必须小于24位，且只能包含英文、数字和下划线。',
+      text: '名称长度必须小于24位，且只能包含英文、中文、数字和下划线。',
     }, socket);
   }
 
   // prevent admin impersonation
   // TODO: prevent mod impersonation
-  if (newNick.toLowerCase() === core.config.adminName.toLowerCase()) {
+  if (newNick.toLowerCase() === core.config.adminName.toLowerCase() && !UAC.isAdmin(socket.level)) {    // MrZhang365：站长本身也会被这段代码“制裁”，所以我加上了isAdmin判断
     server.police.frisk(socket.address, 4);
 
     return server.reply({
       cmd: 'warn',
-      text: '你不是管理员！大骗子！',
+      text: '你不是站长！大骗子！',    // 应该是站长
     }, socket);
   }
 

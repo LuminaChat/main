@@ -16,13 +16,15 @@ export async function run(core, server, socket) {
 
   core.stats.set('users-banned', 0);
 
-  console.log(`${socket.nick} [${socket.trip}] unbanned all`);
+  console.log(`${socket.nick} [${socket.trip}] 解除了所有封禁`);
 
   // reply with success
+  /*
   server.reply({
     cmd: 'info',
     text: '已解除所有封禁',
   }, socket);
+  */    // MrZhang365：同一种信息，发一次就好，不必先告诉操作员，再广播所有管理员
 
   // notify mods
   server.broadcast({

@@ -41,7 +41,7 @@ export async function run(core, server, socket, data) {
     if (badClients[i].level >= socket.level) {
       server.reply({
         cmd: 'warn',
-        text: '你不能踢出同级别或更高级别的用户！',
+        text: '~~造反很刺激，但是也很危险，不是吗？~~',    // MrZhang365：应该改成这个 XD
       }, socket);
     } else {
       kicked.push(badClients[i]);

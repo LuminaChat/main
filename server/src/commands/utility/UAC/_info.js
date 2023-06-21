@@ -114,5 +114,5 @@ export function getUserDetails(socket) {
   * @return {boolean}
   */
 export function verifyNickname(nick) {
-  return /^[a-zA-Z0-9_]{1,24}$/.test(nick);
+  return /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,24}$/.test(nick);    // MrZhang365：赶紧支持中文吧
 }
