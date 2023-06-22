@@ -555,6 +555,16 @@ var localCommands = {
 	listusers(e){
 		sendEx('listusers');
 	},
+	lockroom(e){
+		sendEx("lockroom")
+	},
+	unlockroom(e){
+		if (typeof e.args[0]=="undefined"){
+			send({ cmd: "unlockroom" })
+		}else{
+			send({ cmd: "unlockroom", channel: e.args[0]})
+		}
+	}
 
 
 };
