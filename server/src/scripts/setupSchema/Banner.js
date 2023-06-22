@@ -11,18 +11,18 @@ import chalk from 'chalk';
 // gotta have that sexy console
 console.log(stripIndents`
   ${chalk.magenta('°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸°º¤ø,¸¸,ø¤º°`°º¤ø')}
-  ${chalk.gray('--------------(') + chalk.white(' LuminaChat Setup Wizard ') + chalk.gray(')--------------')}
+  ${chalk.gray('--------------(') + chalk.white(' LuminaChat 安装指导 ') + chalk.gray(')--------------')}
   ${chalk.magenta('°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸°º¤ø,¸¸,ø¤º°`°º¤ø')}
 
-  For advanced setup, see the documentation at:
-  ${chalk.green('https://github.com/hack-chat/main/tree/master/documentation')}
+  了解更多，请查看:
+  ${chalk.green('https://github.com/LuminaChat/main')}
 
-  ${chalk.white('Note:')} ${chalk.green('npm/yarn run config')} will re-run this utility.
+  ${chalk.white('提示:')} ${chalk.green('npm/yarn run config')} 会重新运行此程序.
 
   You will now be asked for the following:
-  -  ${chalk.magenta('      Salt')}, the salt for username trip
-  -  ${chalk.magenta('Admin Name')}, the initial admin username
-  -  ${chalk.magenta('Admin Pass')}, the initial admin password
-  -  ${chalk.magenta('      Port')}, the port for the websocket
+  -  ${chalk.magenta('      混淆值')}, 来让加密更安全
+  -  ${chalk.magenta('    站长名称')}, 字面意思
+  -  ${chalk.magenta('    站长密码')}, 字面意思
+  -  ${chalk.magenta('        端口')}, Websocket服务端口
   \u200b
 `);

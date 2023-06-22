@@ -5,5 +5,5 @@
   */
 
 console.log('');
-console.log('Config generated! You may now start the server normally.');
+console.log('配置文件已创建！你现在可以使用 npm start 来正常运行您的LuminaChat实例.');
 console.log('');
