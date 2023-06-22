@@ -387,6 +387,7 @@ function join(channel) {
 		// 也要在这里修改（如：/chat_ws）
 		var wsPath = ':6060';
 		ws = new WebSocket(protocol + '//' + document.location.hostname + wsPath);
+		pushMessage({nick:"!",text:"这似乎是一个本地安装，如果您想部署到发布环境的话，请在client/client.js的join()函数修改域名和WS地址。"})
 	}
 
 	var wasConnected = false;
@@ -403,6 +404,8 @@ function join(channel) {
 				} else {
 					// The user cancelled the prompt in some manner
 					shouldConnect = false;
+					pushMessage({ nick: '!', text: '您取消了加入，请刷新再试。'})
+					
 				}
 			}
 		}
