@@ -89,3 +89,18 @@ mark{
   margin-bottom: 20px;
   box-shadow: 0px 3px 13px #00000066;
 }
+
+@media screen and (max-width: 600px) {
+  #chatform {
+    height: 30px;
+    margin-bottom: 20px;
+    margin-left: 12.5px;
+    margin-right: 12.5px;
+  }
+
+  #sidebar {
+    margin-top: 5px;
+    border-radius: 20px;
+    margin-right: 5px;
+  }
+}
