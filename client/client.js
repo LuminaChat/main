@@ -41,9 +41,22 @@ var md = new Remarkable('full', markdownOptions);
 // image handler
 var allowImages = false;
 var imgHostWhitelist = [
+	//hack.chat自带
 	'i.imgur.com',
 	'imgur.com',
+	//cmd：下面的是复制的zhc（被打
+	'i.loli.net', 's2.loli.net', // SM-MS图床
+	's1.ax1x.com', 's2.ax1x.com', 'z3.ax1x.com', 's4.ax1x.com', // 路过图床
+	'i.postimg.cc', 'gimg2.baidu.com', // Postimages图床 百度
+	'files.catbox.moe', 'img.thz.cool', 'img.liyuv.top', 'share.lyka.pro', // 这些是ee加的（被打
+	document.location.domain,    // 允许我自己
+	'img.zhangsoft.cf',    // 小张图床
+	'bed.paperee.repl.co',    // 纸片君ee的纸床
+	'imagebed.s3.bitiful.net',    //Dr0让加的()
+	//cmd：下面是OsMe 加的
+	'cdn.luogu.com.cn',//洛谷图床()
 ];
+
 
 function getDomain(link) {
 	var a = document.createElement('a');
@@ -108,39 +121,37 @@ var verifyNickname = function (nick) {
 	return /^[a-zA-Z0-9_]{1,24}$/.test(nick);
 }
 
-var frontpage = [
-	"                            _           _         _       _   ",
-	"                           | |_ ___ ___| |_   ___| |_ ___| |_ ",
-	"                           |   |_ ||  _| '_| |  _|   |_ ||  _|",
-	"                           |_|_|__/|___|_,_|.|___|_|_|__/|_|  ",
-	"",
-	"",
-	"Welcome to hack.chat, a minimal, distraction-free chat application.",
-	"Channels are created, joined and shared with the url, create your own channel by changing the text after the question mark.",
-	"If you wanted your channel name to be 'your-channel': https://hack.chat/?your-channel",
-	"There are no channel lists, so a secret channel name can be used for private discussions.",
-	"",
-	"Here are some pre-made channels you can join:",
-	"?lounge ?meta",
-	"?math ?physics ?chemistry",
-	"?technology ?programming",
-	"?games ?banana",
-	"And here's a random one generated just for you: ?" + Math.random().toString(36).substr(2, 8),
-	"",
-	"Formatting:",
-	"Whitespace is preserved, so source code can be pasted verbatim.",
-	"Surround LaTeX with a dollar sign for inline style $\\zeta(2) = \\pi^2/6$, and two dollars for display. $$\\int_0^1 \\int_0^1 \\frac{1}{1-xy} dx dy = \\frac{\\pi^2}{6}$$",
-	"For syntax highlight, wrap the code like: ```<language> <the code>``` where <language> is any known programming language.",
-	"",
-	"Current Github: https://github.com/hack-chat",
-	"Legacy GitHub: https://github.com/AndrewBelt/hack.chat",
-	"",
-	"Bots, Android clients, desktop clients, browser extensions, docker images, programming libraries, server modules and more:",
-	"https://github.com/hack-chat/3rd-party-software-list",
-	"",
-	"Server and web client released under the WTFPL and MIT open source license.",
-	"No message history is retained on the hack.chat server."
-].join("\n");
+var frontpage =`
+# Lumina.Chat
+版本: ${clientversion}
+
+***
+
+欢迎来到Lumina.Chat, 一个简洁主题的聊天室。
+Lumina是拉丁语中“光”的意思，我们希望此聊天室像阳光一样充满活力和生机。
+
+***
+
+主聊天室: ?main
+
+***
+
+您也可以自己创建聊天室，用以下链接来创建：
+\`${document.location.href}?<你的聊天室名称>\`
+聊天室名称最好是纯英文。
+
+***
+
+我们始终欢迎开发者们来为我们贡献代码！
+查看我们的 Github 仓库：https://github.com/LuminaChat/main
+如果你有问题，可以去查看[FAQ(常见问题)表](/faqs.html)。
+
+***
+
+呈上，
+LuminaChat [开发组](https://github.com/orgs/LuminaChat/people) 和 [社区贡献者们](https://github.com/LuminaChat/main/graphs/contributors)
+`
+
 
 function $(query) {
 	return document.querySelector(query);
@@ -209,7 +220,7 @@ function RequestNotifyPermission() {
 						pushMessage({
 							cmd: "chat",
 							nick: "*",
-							text: "Notifications permission granted.",
+							text: "成功获取通知权限",
 							time: null
 						});
 						notifyPermissionExplained = 1;
@@ -220,7 +231,7 @@ function RequestNotifyPermission() {
 						pushMessage({
 							cmd: "chat",
 							nick: "*",
-							text: "Notifications permission denied, you won't be notified if someone @mentions you.",
+							text: "通知权限被拒绝，如果有人提到您，您将不会收到通知。",
 							time: null
 						});
 						notifyPermissionExplained = -1;
@@ -233,7 +244,7 @@ function RequestNotifyPermission() {
 		pushMessage({
 			cmd: "chat",
 			nick: "*",
-			text: "Unable to create a notification.",
+			text: "无法创建通知",
 			time: null
 		});
 		console.error("An error occured trying to request notification permissions. This browser might not support desktop notifications.\nDetails:")
@@ -327,18 +338,18 @@ function notify(args) {
 }
 
 function join(channel) {
-	if (document.domain == 'hack.chat') {
-		// For https://hack.chat/
-		ws = new WebSocket('wss://hack.chat/chat-ws');
+	if (document.location.hostname == 'lumina.chat') {
+		// For https://lumina.chat/
+		ws = new WebSocket('wss://websocket.lumina.chat:11451/'); //homo port（喜
 	} else {
 		// for local installs
 		var protocol = location.protocol === 'https:' ? 'wss:' : 'ws:'
-		// if you changed the port during the server config, change 'wsPath'
-		// to the new port (example: ':8080')
-		// if you are reverse proxying, change 'wsPath' to the new location
-		// (example: '/chat-ws')
+		// 如果你修改了端口号，
+		// 那么就需要在这里修改（如:8080）
+		// 如果你修改了ws的路径，
+		// 也要在这里修改（如：/chat_ws）
 		var wsPath = ':6060';
-		ws = new WebSocket(protocol + '//' + document.domain + wsPath);
+		ws = new WebSocket(protocol + '//' + document.location.hostname + wsPath);
 	}
 
 	var wasConnected = false;
@@ -349,7 +360,7 @@ function join(channel) {
 			if (location.hash) {
 				myNick = location.hash.substr(1);
 			} else {
-				var newNick = prompt('Nickname:', myNick);
+				var newNick = prompt('输入您的用户名', myNick);
 				if (newNick !== null) {
 					myNick = newNick;
 				} else {
@@ -369,7 +380,7 @@ function join(channel) {
 
 	ws.onclose = function () {
 		if (wasConnected) {
-			pushMessage({ nick: '!', text: "Server disconnected. Attempting to reconnect. . ." });
+			pushMessage({ nick: '!', text: "掉线了！正在尝试重连..." });
 		}
 
 		window.setTimeout(function () {
@@ -471,7 +482,7 @@ var COMMANDS = {
 			userAdd(nick);
 		});
 
-		pushMessage({ nick: '*', text: "Users online: " + nicks.join(", ") })
+		pushMessage({ nick: '*', text: "在线用户: " + nicks.join(", ") })
 	},
 
 	onlineAdd: function (args) {
@@ -480,7 +491,7 @@ var COMMANDS = {
 		userAdd(nick);
 
 		if ($('#joined-left').checked) {
-			pushMessage({ nick: '*', text: nick + " joined" });
+			pushMessage({ nick: '*', text: nick + " 加入了聊天室" });
 		}
 	},
 
@@ -490,7 +501,7 @@ var COMMANDS = {
 		userRemove(nick);
 
 		if ($('#joined-left').checked) {
-			pushMessage({ nick: '*', text: nick + " left" });
+			pushMessage({ nick: '*', text: nick + " 离开了聊天室" });
 		}
 	},
 
@@ -518,7 +529,100 @@ var COMMANDS = {
 		window.scrollTo(0, document.body.scrollHeight);
 	}
 }
+var localCommands = {
+	dumb: function (e) {
+		send({ cmd: 'dumb', nick: e.args[0] });
+		/*ws.send(JSON.stringify(e.args.length > 1 ?
+			{ cmd: "dumb",  nick: e.args[0] } : { cmd: 'dumb', nick: e.args[0], time: e.args[1] }));*/
 
+	},
+	kick(e) {
+		send(e.args.length >= 2 ? { cmd: 'kick', nick: e.args[0] } : { cmd: 'kick', nick: e.args[0], to: e.args[1] })
+	},
+	ban(e) {
+		ws.send(JSON.stringify({
+			cmd: 'ban',
+			nick: e.args[0]
+		}))
+	},
+	moveuser(e) {
+		ws.send(JSON.stringify({
+			cmd: 'moveuser',
+			nick: e.args[0],
+			channel: e.args[1]
+		}))
+	},
+	speak(e) {
+		if (e.args[0].indexOf(".") == -1) {
+			ws.send(JSON.stringify({
+				cmd: 'speak',
+				hash: e.args[0]
+			}))
+		} else {
+			ws.send(JSON.stringify({
+				cmd: 'speak',
+				ip: e.args[0]
+			}))
+		}
+	},
+	reload() {
+		sendEx('reload');
+	},
+	shout(e) {
+		send({
+			cmd: "shout",
+			text: e.text
+		})
+	},
+	story() {
+		send({ cmd: 'chat', text: '我们不该是书写自己的故事\n\n而这不过是其中的一章\n在你书写我们的故事前\n请确定双手的干净' })
+	},
+	roll(e){
+		pushMessage({ nick: "*", text: 'Rick_Astley 加入了聊天室'})
+		pushMessage({nick:"Rick_Astley",text:"Never gonna give you up"})
+		pushMessage({ nick: "*", text: 'Rick_Astley 离开了聊天室'})
+	},
+	addmod(e) {
+		send({ cmd: 'addmod', trip: e.args[0] })
+	},
+	removemod(e){
+		send({ cmd: 'removemod', trip: e.args[0] })
+	},
+	byebye() {
+		//彩蛋*2
+		window.close()
+	},
+	unbanall(e){
+		sendEx('unbanall');
+	},
+	
+	listusers(e){
+		sendEx('listusers');
+	},
+
+
+};
+function commandHook(e) {
+	if (!isCommand(e)) {
+		return
+	}
+	var args = e.split(' ');
+	let cmdname = args[0].split("/")[1];
+	localCommands[cmdname]({
+		text: args.slice(1).join(' '), //完整传入的参数
+		rawtext: e,                    //用户发送的完整内容
+		name: cmdname,                 //命令名称
+		args: args.slice(1)            //已分割的命令参数
+	});
+
+
+}
+function sendEx(cmd, args) {
+	send({ cmd, ...args });
+}
+function isCommand(text) {
+	return text.startsWith("/") && (typeof localCommands[text.split(" ")[0].split("/")[1]] != "undefined")
+}
 function pushMessage(args) {
 	// Message container
 	var messageEl = document.createElement('div');
@@ -576,7 +680,57 @@ function pushMessage(args) {
 			insertAtCursor("@" + args.nick + " ");
 			$('#chatinput').focus();
 		}
+		// Thanks to crosst.chat for this part of code!(reply)
+		nickLinkEl.oncontextmenu = function (e) {
+			e.preventDefault()
 
+			let replyText = '';
+			let originalText = args.text;
+			let overlongText = false;
+
+			// Cut overlong text
+			if (originalText.length > 350) {
+				replyText = originalText.slice(0, 350);
+				overlongText = true;
+			}
+
+			// Add nickname
+			if (args.trip) {
+				replyText = '>' + args.trip + ' ' + args.nick + '：\n';
+			} else {
+				replyText = '>' + args.nick + '：\n';
+			}
+
+			// Split text by line
+			originalText = originalText.split('\n');
+
+			// Cut overlong lines
+			if (originalText.length >= 8) {
+				originalText = originalText.slice(0, 8);
+				overlongText = true;
+			}
+
+			for (let replyLine of originalText) {
+				// Cut third replied text
+				if (!replyLine.startsWith('>>')) {
+					replyText += '>' + replyLine + '\n';
+				}
+			}
+
+			// Add elipsis if text is cutted
+			if (overlongText) {
+				replyText += '>……\n';
+			}
+			replyText += '\n';
+
+			// Add mention when reply to others
+			if (args.nick != myNick) {
+				replyText += '@' + args.nick + ' ';
+			}
+
+			// Insert reply text
+			replyText += $('#chatinput').value;
+		}
 		var date = new Date(args.time || Date.now());
 		nickLinkEl.title = date.toLocaleString();
 		nickSpanEl.appendChild(nickLinkEl);
@@ -676,7 +830,12 @@ $('#chatinput').onkeydown = function (e) {
 			var text = e.target.value;
 			e.target.value = '';
 
-			send({ cmd: 'chat', text: text });
+			if (isCommand(text)) {
+				commandHook(text)
+			} else {
+				send({ cmd: 'chat', text: text });
+			}
+
 
 			lastSent[0] = text;
 			lastSent.unshift("");
