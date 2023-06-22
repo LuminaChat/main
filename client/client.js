@@ -405,7 +405,6 @@ function join(channel) {
 					// The user cancelled the prompt in some manner
 					shouldConnect = false;
 					pushMessage({ nick: '!', text: '您取消了加入，请刷新再试。'})
-					
 				}
 			}
 		}
