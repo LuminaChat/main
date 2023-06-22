@@ -50,7 +50,8 @@ export async function run(core, server, socket) {
                        用户封禁数量: ${(core.stats.get('users-banned') || 0)}
                        用户踢出数量: ${(core.stats.get('users-kicked') || 0)}
                        统计信息请求次数: ${(core.stats.get('stats-requested') || 0)}
-                      服务器在线时间: ${formatTime(process.hrtime(core.stats.get('start-time')))}`,
+                      服务器在线时间: ${formatTime(process.hrtime(core.stats.get('start-time')))}
+                      **提示：请不要拿着服务器在线时间短来嘲讽站长，有时是因为内核级更新而重启。**`,
   }, socket);
 
   // stats are fun
