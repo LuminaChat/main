@@ -108,10 +108,18 @@ export async function run(core, server, socket, data) {
 
   if (userExists.length > 0) {
     // that nickname is already in that channel
-    return server.reply({
-      cmd: 'warn',
-      text: '已经有人使用你的名称在该频道内了',
-    }, socket);
+    // but... if it is yourself?
+    if (userExists[0].address == socket.address) { //same address
+      // then kick this guy out
+      userExists[0].terminate()
+      // and do anything you want
+    } else { 
+        //that's not you, dumbass!
+      return server.reply({
+        cmd: 'warn',
+        text: '已经有人使用你的名称在该频道内了',
+      }, socket);
+    }
   }
 
   userInfo.hash = server.getSocketHash(socket);
