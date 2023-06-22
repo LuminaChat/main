@@ -6,7 +6,7 @@
  * and will not actively be updated.
  *
 */
-const clientversion = 'lmc-1.0-release';
+const clientversion = 'lmc-1.1-release';
 //scroll to top
 window.onload = (e) => {
     window.scrollTo(0,0);
