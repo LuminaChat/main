@@ -9,7 +9,7 @@
 import {
   Errors,
 } from './_Constants.js';
-
+global.LrList=[];
 /**
   * Checks if a client can join `channel`, returns numeric error code or true if
   * able to join

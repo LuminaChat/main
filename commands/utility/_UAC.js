@@ -15,7 +15,7 @@ const {
   createHash,
 } = await import('crypto');
 
-const TripLength = 10;
+const TripLength = 6;
 
 /**
   * Object defining labels for default permission ranges
