@@ -6,7 +6,7 @@
  * and will not actively be updated.
  *
 */
-
+const clientversion = 'lmc-2.0-release';
 // initialize markdown engine
 var markdownOptions = {
 	html: false,
