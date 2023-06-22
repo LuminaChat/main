@@ -68,6 +68,7 @@ var imgHostWhitelist = [
 	'imagebed.s3.bitiful.net',    //Dr0让加的()
 	//cmd：下面是OsMe 加的
 	'cdn.luogu.com.cn',//洛谷图床()
+	'img1.imgtp.com',	//imgtp
 ];
 
 function getDomain(link) {
@@ -197,12 +198,18 @@ var faqs = `
 ### Q6: 为什么有时候聊天室屏幕会花花绿绿
 可能是有人在公屏或者私信你了rule
 （也可能是有人在邀请你时设置的频道是rule）
-你可以在侧边栏关闭Latex，然后记录发送rule的用户，然后向管理员举报
+你可以在侧边栏关闭LaTeX，然后记录发送rule的用户，然后向管理员举报
 *****
 
 ### Q7: 这里的规则很严格吗？
 ~~这里是无政府的2b2t~~
 这里并不严格，但不代表你可以肆意妄为。
+*****
+
+### Q8: 为什么我发送的LaTeX代码无法被渲染？
+请先确保您的代码没有**任何**的**语法错误**
+如果出现了语法错误，您发送的LaTeX不会被渲染，且会变成**红色**
+如果您确定您的LaTeX代码无误，则说明我们使用的LaTeX渲染程序（KaTeX）不支持您所发送的源码。
 
 **********
 
@@ -1065,7 +1072,8 @@ var schemes = [
 	"rainbow",
 	"tomorrow",
 	"blind",
-	"amoled"
+	"amoled",
+	"GAF"
 ];
 
 var highlights = [

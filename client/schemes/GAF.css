@@ -1,0 +1,91 @@
+body {
+  background: #eee;
+  color: #333;
+  font-family: 'Google San';
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('https://zzchat.cf/fonts/sans.woff2');
+}
+
+input,textarea {
+  color: #333;
+}
+
+.message {
+  border-left: 1px solid #eee;
+}
+
+.refmessage {
+  border-left: 1px solid #eee;
+}
+
+.nick {
+  color: #6684e1;
+  font-weight: 800;
+  float: left;
+  width: 16em;
+  margin-left: -17em;
+  margin-right: 1em;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.trip {
+  color: #6e6b5e;
+}
+
+text {
+  margin: 0;
+  margin-left: 1em;
+  line-height: 160%;
+}
+
+.text a {
+  color: #6cf;
+}
+
+.admin .nick {
+  color: #d73737;
+}
+
+.mod .nick {
+  color: #1fad83;
+}
+
+.me .nick {
+  color: #6684e1;
+}
+
+.info .nick,.info .text {
+  color: #0a8;
+}
+
+mark{
+  background-color: #0ca;
+}
+
+.warn .nick,.warn .text {
+  color: #cfb017;
+}
+
+#footer {
+  background: #eee;
+}
+
+#sidebar {
+  background: #fff;
+  border-color: #fff;
+  box-shadow: 0px 3px 13px #00000066;
+}
+
+#chatform {
+  height: 30px;
+  border-radius: 50px;
+  border: 1px solid #fff;
+  background: #fff;
+  margin-bottom: 20px;
+  box-shadow: 0px 3px 13px #00000066;
+}
