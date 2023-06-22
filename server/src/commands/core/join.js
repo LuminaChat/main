@@ -111,6 +111,10 @@ export async function run(core, server, socket, data) {
     // but... if it is yourself?
     if (userExists[0].address == socket.address) { //same address
       // then kick this guy out
+      server.reply(
+        { cmd:"warn", action_id:"YOU_ARE_ZOMBIE", text:"你可能是僵尸号，已被断开连接\n如果这不是你的操作，请确保你没有和他人共用一个IP地址。"},
+        userExists[0]
+      )
       userExists[0].terminate()
       // and do anything you want
     } else { 
