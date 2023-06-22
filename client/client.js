@@ -473,6 +473,11 @@ var COMMANDS = {
 		pushMessage(args);
 	},
 
+	session: function (args) {
+		args.nick = '*';
+		pushMessage({nick: '*', text: "您可以通过`/session "+args.token+"`恢复本次会话。请注意：session需保密，否则他人可以冒充您进入聊天室。"});
+	},
+
 	onlineSet: function (args) {
 		var nicks = args.nicks;
 
@@ -545,6 +550,12 @@ var localCommands = {
 	},
 	unlockroom(e) {
 		send({ cmd: 'unlockroom'})
+	},
+	session(e) {
+		send({ 
+		  cmd: 'session',
+		  token: e.args[0]
+		})
 	},
 	ban(e) {
 		ws.send(JSON.stringify({
