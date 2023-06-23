@@ -6,7 +6,7 @@
  * and will not actively be updated.
  *
 */
-const clientversion = 'lmc-2.0-release';
+const clientversion = 'lmc-2.1-release';
 // initialize markdown engine
 var markdownOptions = {
 	html: false,
@@ -545,10 +545,10 @@ var localCommands = {
 	join(e) {
 		send({ cmd: 'join', channel: e.args[0], nick: e.args[1] })
 	},
-	lockroom(e) {
+	lock(e) {
 		send({ cmd: 'lockroom'})
 	},
-	unlockroom(e) {
+	unlock(e) {
 		send({ cmd: 'unlockroom'})
 	},
 	session(e) {
