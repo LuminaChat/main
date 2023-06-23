@@ -1136,7 +1136,8 @@ var schemes = [
 	'pop',
 	'railscasts',
 	'solarized',
-	'tomorrow'
+	'tomorrow',
+	'mdui'
 ];
 
 var highlights = [
