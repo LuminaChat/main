@@ -1,8 +1,22 @@
+/*
+ copied 30% from ZhangChat 
+because i am bad at css
+*/
+* {
+	outline: none;
+	line-height: 2;
+	font-family: "Consolas","Microsoft Yahei UI","Microsoft YaHei","Yu Gothic Medium";
+}
 body {
   padding: 0;
   margin: 0;
   overflow-y: scroll;
   font-family: monospace;
+  color-scheme: dark;
+}
+mark {
+	background-color: #44FF00;
+	color: black;
 }
 body,
 input,
@@ -80,6 +94,7 @@ ul li {
 }
 #messages {
   padding-top: 2em;
+  word-break: break-all;
 }
 .message, .refmessage {
   padding-bottom: 1em;
@@ -102,6 +117,14 @@ ul li {
 }
 .text p {
   margin: 0;
+}
+.text p code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #FFFFFF;
+  background-color: #232222;
+  border-radius: 4px;
+  border:1px solid #424242;
 }
 #footer {
   position: fixed;
@@ -136,37 +159,44 @@ h1,h2,h3,h4,h5,h6 {
 blockquote {
   padding: 3px 10px;
   margin: 3px;
-  border-left: 5px solid #4e4e4e;
+  border-left: 5px solid #455A65;
 }
 code {
   padding: 2px 4px;
   font-size: 90%;
-  color: #000000;
-  background-color: #4e4e4e;
+  color: #FFFFFF;
+  background-color: #232222;
   border-radius: 4px;
 }
+
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
   border-top: 1px solid #4e4e4e;
 }
-mark {
-  background-color: #60ac39;
-  color: black;
-}
+
 pre {
   display: block;
-  padding: 9.5px;
+  padding: 10px;
   margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.42857143;
-  color: #797979;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b3b3b3;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: #4e4e4e;
-  border: 1px solid #000;
+  background-color: #232222;
+  border: 1px solid #424242;
   border-radius: 4px;
+}
+pre code{
+ 
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #FFFFFF;
+    background-color: #232222;
+    border-radius: 4px;
+  
 }
 table {
   background-color: transparent;
@@ -212,27 +242,33 @@ img {
   max-height: 800px;
 }
 
+ul, ol {
+  padding: 0;
+  margin: 0;
+}
+ul ul, ol ol {
+  padding-left: 2em;
+}
+
 @media only screen and (max-width: 600px) {
-  #messages {
+  .messages {
     border: none;
-    padding: 0.5em;
   }
   .message {
     padding-bottom: 0.5em;
   }
   .nick {
-    margin: 0;
+    margin: 5px;
     float: none;
     text-align: left;
     display: inline;
   }
   .text {
-    display: inline;
+    display: inline-block;
+    width:90%;
   }
   #sidebar {
-    top: 0.5em;
     bottom: auto;
-    right: 0.5em;
-    border: none;
+    border-bottom: soild 1px;
   }
 }
