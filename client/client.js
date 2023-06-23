@@ -55,6 +55,9 @@ var imgHostWhitelist = [
 	'imagebed.s3.bitiful.net',    //Dr0让加的()
 	//cmd：下面是OsMe 加的
 	'cdn.luogu.com.cn',//洛谷图床()
+	//常见图床
+	'i.imgur.com', 'i.pinimg.com','s.imgur.com', 'g.cnimg.cn', 'gstatic.cnimg.cn','s3.imgur.com', 'i.loli.net','s2.loli.net',
+	
 ];
 
 
