@@ -8,6 +8,13 @@ Lumina.Chat是一个简洁的聊天应用。
 Lumina为拉丁语中“光”的意思。
 我们希望此聊天室充满活力和阳光。
 
+## 安装
+```bash
+git clone https://github.com/LuminaChat/main.git
+cd main
+npm i
+npm hc-config
+```
 ## 鸣谢
 本项目修改自Hack.Chat.
 
