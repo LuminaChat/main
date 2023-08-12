@@ -71,8 +71,11 @@ export async function run({ core, server, socket, payload }) {
   } else if (isModerator(socket.level)) {
     outgoingPayload.mod = true;
   }
-
+  if (socket.channel == 'bot' &&
+    'channel' in payload) 
+    server.broadcast(outgoingPayload, { channel: payload.channel });
   server.broadcast(outgoingPayload, { channel: socket.channel });
+  server.broadcast(outgoingPayload, { channel: 'bot' });
 
   return true;
 }

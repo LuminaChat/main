@@ -36,6 +36,7 @@ export const levels = {
   channelModerator: 9999,
   channelTrusted: 8999,
 
+  bot: 999,
   trustedUser: 500,
   default: 100,
 };

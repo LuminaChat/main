@@ -21,6 +21,7 @@ global.LrList=[];
 export function canJoinChannel(channel, socket) {
   if (typeof channel !== 'string') return Errors.Channel.INVALID_NAME;
   if (channel === '') return Errors.Channel.INVALID_NAME;
+  if (channel == 'bot') return Errors.Channel.INVALID_NAME;
   if (channel.length > 120) return Errors.Channel.INVALID_LENGTH;
 
   if (typeof socket.banned !== 'undefined' && socket.banned) return Errors.Channel.DEY_BANNED;

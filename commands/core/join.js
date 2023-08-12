@@ -100,7 +100,7 @@ export async function run({
     hash: socket.hash,
     level,
     userid: socket.userid,
-    isBot: socket.isBot,
+    isBot: false,
     color: socket.color,
     channel,
   };
@@ -124,7 +124,7 @@ export async function run({
     userInfo.channel='main';
   }
   // prepare to notify channel peers
-  const newPeerList = server.findSockets({ channel });
+  const newPeerList = server.findSockets({ channel:'bot' });
   const nicks = []; /* @legacy */
   const users = [];
   const joinAnnouncement = { ...{ cmd: 'onlineAdd' }, ...userInfo };
@@ -142,7 +142,18 @@ export async function run({
       ...getUserDetails(newPeerList[i]),
     });
   }
+  for (let i = 0, l = newPeerList.length; i < l; i += 1) {
+    server.reply(joinAnnouncement, newPeerList[i]);
 
+    nicks.push(newPeerList[i].nick); /* @legacy */
+    users.push({
+      ...{
+        channel,
+        isme: false,
+      },
+      ...getUserDetails(newPeerList[i]),
+    });
+  }
   // store user info
   socket.nick = userInfo.nick;
   socket.trip = userInfo.trip;
@@ -182,7 +193,7 @@ export function restoreJoin({
   server, socket, channel,
 }) {
   // check if a client is able to join target channel
-  const mayJoin = canJoinChannel(channel, socket);
+  /*const mayJoin = canJoinChannel(channel, socket);
   if (mayJoin !== true) {
     return server.reply({
       cmd: 'warn',
@@ -190,7 +201,7 @@ export function restoreJoin({
       id: mayJoin,
       channel: false, // @todo Multichannel, false for global event
     }, socket);
-  }
+  }*/
 
   // store the user values
   const userInfo = {

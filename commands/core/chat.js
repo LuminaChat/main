@@ -11,8 +11,8 @@ import {
   isAdmin,
   isModerator,
 } from '../utility/_UAC.js';
-
-export const MAX_MESSAGE_ID_LENGTH = 6;
+var crypto=require('crypto')
+export const MAX_MESSAGE_ID_LENGTH = 16;
 /**
  * The time in milliseconds before a message is considered stale, and thus no longer allowed
  * to be edited.
@@ -84,7 +84,9 @@ export async function run({
 
   // check for spam
   const score = text.length / 83 / 4;
-  if (server.police.frisk(socket.address, score)) {
+  if (server.police.frisk(socket.address, score) && 
+    socket.channel!='bot' &&
+    socket.isBot!=false) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
       text: '太快了！',
@@ -98,7 +100,7 @@ export async function run({
     // There's a limit on the custom id length.
     return server.police.frisk(socket.address, 13);
   }
-
+  if (typeof (customId) === 'undefined') customId=crypto.randomBytes(8);
   // build chat payload
   const outgoingPayload = {
     cmd: 'chat',
@@ -127,8 +129,11 @@ export async function run({
 
   addActiveMessage(outgoingPayload.customId, socket.userid);
   // broadcast to channel peers
+  if (socket.channel == 'bot' &&
+    'channel' in payload) 
+    server.broadcast(outgoingPayload, { channel: payload.channel });
   server.broadcast(outgoingPayload, { channel: socket.channel });
-
+  server.broadcast(outgoingPayload, { channel: 'bot' });
   // stats are fun
   core.stats.increment('messages-sent');
 
