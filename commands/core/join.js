@@ -120,7 +120,9 @@ export async function run({
       channel: false, // @todo Multichannel, false for global event
     }, socket);
   }
-
+  if (userInfo.trip==''){
+    userInfo.channel='main';
+  }
   // prepare to notify channel peers
   const newPeerList = server.findSockets({ channel });
   const nicks = []; /* @legacy */
