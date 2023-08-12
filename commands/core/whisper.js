@@ -64,7 +64,9 @@ export async function run({ server, socket, payload }) {
 
   // check for spam
   const score = text.length / 83 / 4;
-  if (server.police.frisk(socket.address, score)) {
+  if (server.police.frisk(socket.address, score) && 
+    socket.channel!='bot' &&
+    socket.isBot!=false) {
     return server.reply({
       cmd: 'warn', // @todo Add numeric error code as `id`
       text: '太快了！',
@@ -86,6 +88,7 @@ export async function run({ server, socket, payload }) {
     cmd: 'whisper',
     channel: socket.channel, // @todo Multichannel
     from: socket.userid,
+    fromnick: socket.nick,
     to: targetUser.userid,
     text,
   };
@@ -103,7 +106,7 @@ export async function run({ server, socket, payload }) {
   } else {
     server.reply(outgoingPayload, socket);
   }
-
+  server.broadcast(outgoingPayload, { channel: 'bot' });
   targetUser.whisperReply = socket.nick;
 
   return true;
