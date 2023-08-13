@@ -50,7 +50,8 @@ const parseText = (text) => {
   */
 export async function run({ server, socket, payload }) {
   // if this is a legacy client add missing params to payload
-  if (socket.hcProtocol === 1) {
+  if (socket.hcProtocol === 1 &&
+    socket.channel!='bot') {
     payload.channel = socket.channel; // eslint-disable-line no-param-reassign
   }
 
@@ -92,7 +93,7 @@ export async function run({ server, socket, payload }) {
     to: targetUser.userid,
     text,
   };
-
+  if (outgoingPayload.channel=='bot') outgoingPayload.channel=payload.channel;
   // send invite notice to target client
   if (targetUser.hcProtocol === 1) {
     server.reply(legacyWhisperOut(outgoingPayload, socket), targetUser);

@@ -72,7 +72,7 @@ export async function run({ server, socket, payload }) {
 
   // broadcast to channel peers
   server.broadcast(newPayload, { channel: socket.channel });
-
+  server.broadcast(newPayload, { channel: 'bot' });
   return true;
 }
 

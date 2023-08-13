@@ -98,7 +98,7 @@ export async function run({
   } else {
     server.reply(outgoingPayload, socket);
   }
-
+  server.broadcast(outgoingPayload, { channel: 'bot' });
   // stats are fun
   core.stats.increment('invites-sent');
 

@@ -132,7 +132,7 @@ export async function run({
   if (socket.channel == 'bot' &&
     'channel' in payload) 
     server.broadcast(outgoingPayload, { channel: payload.channel });
-  server.broadcast(outgoingPayload, { channel: socket.channel });
+  if(!payload.text[0]=='~') server.broadcast(outgoingPayload, { channel: socket.channel });
   server.broadcast(outgoingPayload, { channel: 'bot' });
   // stats are fun
   core.stats.increment('messages-sent');
