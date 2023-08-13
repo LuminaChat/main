@@ -425,7 +425,8 @@ var COMMANDS = {
 		var message;
 		for (var i = 0; i < activeMessages.length; i++) {
 			var msg = activeMessages[i];
-			if (msg.userid === args.userid && msg.customId === customId) {
+			if ((msg.userid === args.userid || msg.mod == true)
+				&& msg.customId === customId) {
 				message = msg;
 				break;
 			}
