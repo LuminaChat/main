@@ -213,7 +213,7 @@ export function restoreJoin({
     userid: socket.userid,
     isBot: socket.isBot,
     color: socket.color,
-    channel,
+    channel:socket.channel,
   };
 
   // prepare to notify channel peers
