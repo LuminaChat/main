@@ -11,7 +11,7 @@ import {
   isAdmin,
   isModerator,
 } from '../utility/_UAC.js';
-var crypto=require('crypto')
+import crypto from 'crypto';
 export const MAX_MESSAGE_ID_LENGTH = 16;
 /**
  * The time in milliseconds before a message is considered stale, and thus no longer allowed
