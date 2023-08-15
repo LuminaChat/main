@@ -11,7 +11,7 @@ import {
   isAdmin,
   isModerator,
 } from '../utility/_UAC.js';
-import crypto from 'crypto';
+//import crypto from 'crypto';
 export const MAX_MESSAGE_ID_LENGTH = 16;
 /**
  * The time in milliseconds before a message is considered stale, and thus no longer allowed
@@ -100,7 +100,7 @@ export async function run({
     // There's a limit on the custom id length.
     return server.police.frisk(socket.address, 13);
   }
-  if (typeof (customId) === 'undefined') customId=crypto.randomBytes(8);
+  //if (typeof (customId) === 'undefined') customId=crypto.randomBytes(8);
   // build chat payload
   const outgoingPayload = {
     cmd: 'chat',
